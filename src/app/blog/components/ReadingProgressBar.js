@@ -6,36 +6,33 @@ export default function ReadingProgressBar() {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        const scrolled = (window.scrollY / scrollHeight) * 100;
-        setWidth(Math.min(scrolled, 100));
-      }
+    const onScroll = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable > 0) setWidth(Math.min((window.scrollY / scrollable) * 100, 100));
     };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    /* Container — sits above the header (z-[9999]) */
     <div
-      className="fixed top-0 left-0 w-full z-[9999] pointer-events-none"
-      style={{ height: "3px", background: "rgba(0,0,0,0.04)" }}
       role="progressbar"
       aria-valuenow={Math.round(width)}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label="Sayfa okuma ilerlemesi"
+      style={{
+        position: "fixed", top: 0, left: 0,
+        width: "100%", height: "2px",
+        background: "var(--glass-border)",
+        zIndex: 9999, pointerEvents: "none",
+      }}
     >
       <div
-        className="h-full progress-bar-gradient"
+        className="progress-bar-gradient"
         style={{
+          height: "100%",
           width: `${width}%`,
           transition: "width 80ms linear",
-          boxShadow: width > 2 ? "0 0 8px rgba(99,102,241,0.5)" : "none",
         }}
       />
     </div>

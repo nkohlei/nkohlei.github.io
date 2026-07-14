@@ -2,144 +2,111 @@
 
 import { useState, useEffect } from "react";
 
-export default function CookieConsent() {
-  const [visible, setVisible] = useState(false);
-  const [entered, setEntered] = useState(false);
+export default function CookieConsent({ lang = "tr" }) {
+  const [visible,  setVisible]  = useState(false);
+  const [entered,  setEntered]  = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookie-consent");
-    if (!consent) {
-      // 2-second delay before appearing
-      const showTimer = setTimeout(() => {
-        setVisible(true);
-        // small extra tick so CSS transition fires
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => setEntered(true));
-        });
-      }, 2000);
-      return () => clearTimeout(showTimer);
-    }
+    if (localStorage.getItem("cookie-consent")) return;
+    const t1 = setTimeout(() => {
+      setVisible(true);
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => setEntered(true))
+      );
+    }, 2000);
+    return () => clearTimeout(t1);
   }, []);
 
-  const acceptCookies = () => {
-    setEntered(false);
-    setTimeout(() => {
-      localStorage.setItem("cookie-consent", "accepted");
-      setVisible(false);
-    }, 400);
-  };
-
-  const declineCookies = () => {
-    setEntered(false);
-    setTimeout(() => {
-      localStorage.setItem("cookie-consent", "declined");
-      setVisible(false);
-    }, 400);
-  };
+  const accept  = () => { setEntered(false); setTimeout(() => { localStorage.setItem("cookie-consent", "accepted");  setVisible(false); }, 400); };
+  const decline = () => { setEntered(false); setTimeout(() => { localStorage.setItem("cookie-consent", "declined");  setVisible(false); }, 400); };
 
   if (!visible) return null;
+
+  const T = {
+    tr: {
+      title: "Çerez & Veri Politikası",
+      sub:   "DATA POLICY",
+      body:  "Deneyiminizi geliştirmek ve içerikleri kişiselleştirmek için çerezler kullanıyoruz.",
+      accept: "Kabul Et",
+      decline: "Reddet",
+    },
+    en: {
+      title: "Cookie & Data Policy",
+      sub:   "DATA POLICY",
+      body:  "We use cookies to improve your experience and personalise content.",
+      accept: "Accept",
+      decline: "Decline",
+    },
+  }[lang] || {};
 
   return (
     <div
       id="cookie-consent-banner"
       role="dialog"
       aria-live="polite"
-      aria-label="Çerez izni"
       style={{
-        position: "fixed",
-        bottom: "24px",
-        left: "24px",
-        zIndex: 9998,
-        maxWidth: "360px",
-        width: "calc(100vw - 48px)",
-        opacity: entered ? 1 : 0,
-        transform: entered ? "translateY(0)" : "translateY(16px)",
-        transition: "opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1)",
+        position: "fixed", bottom: "24px", left: "24px",
+        zIndex: 9000,
+        maxWidth: "340px", width: "calc(100vw - 48px)",
+        opacity:   entered ? 1 : 0,
+        transform: entered ? "translateY(0)" : "translateY(14px)",
+        transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)",
       }}
     >
-      <div
-        style={{
-          background: "rgba(250,249,246,0.92)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          border: "1px solid rgba(0,0,0,0.06)",
-          borderRadius: "14px",
-          padding: "20px",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06)",
-        }}
-        className="dark:[background:rgba(12,13,20,0.92)] dark:[border-color:rgba(255,255,255,0.08)] dark:[box-shadow:0_20px_60px_rgba(0,0,0,0.5)]"
-      >
+      <div className="glass-modal rounded-2xl p-5">
         {/* Icon + title */}
         <div className="flex items-start gap-3 mb-3">
           <div
             style={{
-              flexShrink: 0,
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              background: "rgba(99,102,241,0.1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              border: "1px solid rgba(99,102,241,0.2)",
+              flexShrink: 0, width: "30px", height: "30px",
+              borderRadius: "8px", display: "flex",
+              alignItems: "center", justifyContent: "center",
+              background: "var(--accent-muted)",
+              border: "1px solid var(--border-color)",
             }}
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
           </div>
           <div>
-            <h5
-              className="font-mono font-bold uppercase tracking-wider text-[11px]"
-              style={{ color: "#0D0E12" }}
-            >
-              Çerez & Veri Politikası
-            </h5>
-            <p className="text-[10px] font-mono mt-0.5" style={{ color: "#6b7280" }}>
-              DATA POLICY // COOKIE CONSENT
-            </p>
+            <h5 className="font-semibold text-[12px]" style={{ color: "var(--foreground)" }}>{T.title}</h5>
+            <p className="font-mono text-[9px] uppercase tracking-widest mt-0.5" style={{ color: "var(--foreground-subtle)" }}>{T.sub}</p>
           </div>
         </div>
-
-        {/* Body */}
-        <p
-          className="text-[11px] leading-relaxed mb-4"
-          style={{ color: "#374151" }}
-        >
-          Deneyiminizi geliştirmek ve reklamları kişiselleştirmek için çerezler
-          kullanıyoruz. Kabul ederek çerez politikamıza onay vermiş olursunuz.
-        </p>
-
-        {/* Buttons */}
+        <p className="text-[11px] leading-relaxed mb-4" style={{ color: "var(--foreground-muted)" }}>{T.body}</p>
         <div className="flex gap-2">
           <button
             id="cookie-accept-btn"
-            onClick={acceptCookies}
-            className="flex-1 font-mono text-[10px] font-bold uppercase tracking-widest rounded-lg py-2 transition-all duration-300"
+            onClick={accept}
             style={{
-              background: "#6366f1",
-              color: "#ffffff",
-              border: "1px solid transparent",
+              flex: 1, padding: "8px", borderRadius: "8px",
+              background: "var(--foreground)", color: "var(--background)",
+              border: "none", cursor: "pointer",
+              fontSize: "11px", fontWeight: 700,
+              fontFamily: "var(--font-geist-mono), monospace",
+              letterSpacing: "0.04em", textTransform: "uppercase",
+              transition: "opacity 0.2s",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#4f46e5"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#6366f1"; }}
-          >
-            Kabul Et
-          </button>
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.8"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
+          >{T.accept}</button>
           <button
             id="cookie-decline-btn"
-            onClick={declineCookies}
-            className="flex-1 font-mono text-[10px] font-bold uppercase tracking-widest rounded-lg py-2 transition-all duration-300"
+            onClick={decline}
             style={{
+              flex: 1, padding: "8px", borderRadius: "8px",
               background: "transparent",
-              color: "#6b7280",
-              border: "1px solid rgba(0,0,0,0.1)",
+              border: "1px solid var(--border-color)",
+              color: "var(--foreground-muted)",
+              cursor: "pointer", fontSize: "11px", fontWeight: 600,
+              fontFamily: "var(--font-geist-mono), monospace",
+              letterSpacing: "0.04em", textTransform: "uppercase",
+              transition: "all 0.2s",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(0,0,0,0.2)"; e.currentTarget.style.color = "#374151"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(0,0,0,0.1)"; e.currentTarget.style.color = "#6b7280"; }}
-          >
-            Reddet
-          </button>
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--border-hover)"; e.currentTarget.style.color = "var(--foreground)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-color)"; e.currentTarget.style.color = "var(--foreground-muted)"; }}
+          >{T.decline}</button>
         </div>
       </div>
     </div>

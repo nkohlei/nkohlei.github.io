@@ -2,91 +2,88 @@
 
 import { useState } from "react";
 import LegalModal from "./LegalModals";
+import PartnerLogos from "./PartnerLogos";
+import ScrollToTop from "./ScrollToTop";
 
-export default function Footer() {
-  const [modalType, setModalType] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const LINKS = [
+  { id: "privacy", key: "privacy",  tr: "Gizlilik Politikası", en: "Privacy Policy"  },
+  { id: "terms",   key: "terms",    tr: "Kullanım Şartları",   en: "Terms of Service" },
+  { id: "contact", key: "contact",  tr: "İletişim & Künye",    en: "Contact"          },
+];
 
-  const openModal = (type) => {
-    setModalType(type);
-    setIsModalOpen(true);
-  };
+export default function Footer({ lang = "tr" }) {
+  const [modalType, setModalType]   = useState(null);
+  const [modalOpen, setModalOpen]   = useState(false);
 
-  const links = [
-    { id: "privacy-link", label: "Gizlilik Politikası", type: "privacy" },
-    { id: "terms-link", label: "Kullanım Şartları", type: "terms" },
-    { id: "contact-link", label: "İletişim & Künye", type: "contact" },
-  ];
+  const open  = (type) => { setModalType(type); setModalOpen(true); };
+  const close = ()     => setModalOpen(false);
+
+  const brand  = "EVENT HORIZON";
+  const copy   = lang === "en"
+    ? `© ${new Date().getFullYear()} Event Horizon. Independent science archive. All rights reserved.`
+    : `© ${new Date().getFullYear()} Event Horizon. Bağımsız popüler bilim arşivi. Tüm hakları saklıdır.`;
 
   return (
     <>
-      <footer
-        style={{
-          borderTop: "1px solid var(--border-color)",
-          background: "var(--panel-bg)",
-          backdropFilter: "blur(8px)",
-          padding: "48px 0 32px",
-          fontFamily: "var(--font-geist-mono), monospace",
-        }}
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* ── Top row ── */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-8" style={{ borderBottom: "1px solid var(--border-color)" }}>
+      {/* Partner logos — lives above the footer divider */}
+      <PartnerLogos lang={lang} />
+
+      <footer style={{ borderTop: "1px solid var(--border-color)" }}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+          {/* Top row */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8"
+            style={{ borderBottom: "1px solid var(--border-color)" }}>
             {/* Brand */}
             <div>
-              <p
-                className="text-lg font-black tracking-tighter mb-1"
-                style={{ color: "var(--foreground)", letterSpacing: "-0.04em" }}
-              >
-                EVENT HORIZON
+              <p style={{ fontSize: "15px", fontWeight: 800, letterSpacing: "-0.04em", color: "var(--foreground)" }}>
+                {brand}
               </p>
-              <p
-                className="text-[10px] uppercase tracking-widest"
-                style={{ color: "var(--foreground-muted)" }}
-              >
+              <p className="font-mono text-[10px] uppercase tracking-widest mt-0.5" style={{ color: "var(--foreground-subtle)" }}>
                 OXYPACE APEX ARCHIVES // SCIENCE PORTAL
               </p>
             </div>
 
             {/* Nav links */}
-            <nav className="flex items-center gap-6 text-[11px] uppercase tracking-widest" style={{ color: "var(--foreground-muted)" }}>
-              {links.map((link) => (
+            <nav className="flex flex-wrap items-center justify-center gap-5 font-mono text-[11px] uppercase tracking-widest"
+              style={{ color: "var(--foreground-muted)" }}>
+              {LINKS.map((l) => (
                 <button
-                  key={link.id}
-                  id={link.id}
-                  onClick={() => openModal(link.type)}
-                  className="link-underline transition-colors duration-300 hover:text-[color:var(--foreground)] focus:outline-none"
-                  style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", letterSpacing: "inherit", textTransform: "inherit" }}
+                  key={l.id}
+                  id={`footer-${l.id}`}
+                  onClick={() => open(l.key)}
+                  className="link-underline transition-theme"
+                  style={{
+                    background: "none", border: "none", cursor: "pointer",
+                    fontFamily: "inherit", fontSize: "inherit",
+                    color: "inherit", letterSpacing: "inherit", textTransform: "inherit",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "var(--foreground)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = ""; }}
                 >
-                  {link.label}
+                  {lang === "en" ? l.en : l.tr}
                 </button>
               ))}
             </nav>
           </div>
 
-          {/* ── Bottom row ── */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 text-[10px]" style={{ color: "var(--foreground-muted)" }}>
-            <p className="uppercase tracking-widest">
-              © {new Date().getFullYear()} EVENT HORIZON. Bağımsız bilimsel popüler arşiv.
-            </p>
-            <div className="flex items-center gap-2">
-              {/* Live indicator */}
-              <span
-                className="h-1.5 w-1.5 rounded-full bg-emerald-400 inline-block"
-                style={{ boxShadow: "0 0 6px rgba(52,211,153,0.6)", animation: "glow-pulse 2s ease-in-out infinite" }}
-              />
-              <span className="uppercase tracking-widest">All Systems Operational</span>
+          {/* Bottom row */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6"
+            style={{ color: "var(--foreground-subtle)", fontSize: "11px", fontFamily: "var(--font-geist-mono), monospace" }}>
+            <p className="uppercase tracking-widest">{copy}</p>
+            <div className="flex items-center gap-2 uppercase tracking-widest">
+              <span className="h-1.5 w-1.5 rounded-full inline-block"
+                style={{ background: "#22c55e", opacity: 0.8, animation: "ping-soft 2.5s ease-in-out infinite" }} />
+              All Systems Operational
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Legal Modals */}
-      <LegalModal
-        isOpen={isModalOpen}
-        type={modalType}
-        onClose={() => setIsModalOpen(false)}
-      />
+      {/* Scroll to top */}
+      <ScrollToTop />
+
+      {/* Legal modals */}
+      <LegalModal isOpen={modalOpen} type={modalType} onClose={close} lang={lang} />
     </>
   );
 }

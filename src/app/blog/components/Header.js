@@ -1,128 +1,288 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import SearchModal from "./SearchModal";
 
-export default function Header({ isArticle = false }) {
-  const [theme, setTheme] = useState("dark");
-  const [scrolled, setScrolled] = useState(false);
+/* ── Category data ── */
+const CATEGORIES = [
+  { icon: "🌌", key: "physics",   tr: "Teorik Fizik",           en: "Theoretical Physics" },
+  { icon: "🚀", key: "cosmo",     tr: "Kozmoloji & Uzay",        en: "Cosmology & Space" },
+  { icon: "🏔️", key: "extreme",   tr: "Ekstrem Doğa Fiziği",    en: "Extreme Adventure" },
+  { icon: "📊", key: "calc",      tr: "Analiz & Hesaplama",      en: "Analysis Portal",  href: "/calculations" },
+];
 
+const NAV_LABELS = {
+  tr: { archives: "Arşiv", index: "İndeks", modules: "Modüller", back: "Geri Dön" },
+  en: { archives: "Archive", index: "Index", modules: "Modules", back: "Go Back" },
+};
+
+export default function Header({ isArticle = false, lang = "tr", onLangChange }) {
+  const [theme,          setTheme]          = useState("dark");
+  const [scrolled,       setScrolled]       = useState(false);
+  const [searchOpen,     setSearchOpen]     = useState(false);
+  const [dropdownOpen,   setDropdownOpen]   = useState(false);
+  const dropdownRef = useRef(null);
+  const t = NAV_LABELS[lang] || NAV_LABELS.tr;
+
+  /* Initialise theme from localStorage */
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
     setTheme(isDark ? "dark" : "light");
+  }, []);
 
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+  /* Scroll listener */
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", h, { passive: true });
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+
+  /* Close dropdown on outside click */
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const h = (e) => {
+      if (!dropdownRef.current?.contains(e.target)) setDropdownOpen(false);
     };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, [dropdownOpen]);
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+  /* ESC closes search */
+  useEffect(() => {
+    const h = (e) => { if (e.key === "Escape") setSearchOpen(false); };
+    document.addEventListener("keydown", h);
+    return () => document.removeEventListener("keydown", h);
   }, []);
 
   const toggleTheme = () => {
-    if (theme === "dark") {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setTheme("light");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setTheme("dark");
-    }
+    const next = theme === "dark" ? "light" : "dark";
+    document.documentElement.classList.toggle("dark", next === "dark");
+    localStorage.setItem("theme", next);
+    setTheme(next);
+  };
+
+  const toggleLang = () => {
+    const next = lang === "tr" ? "en" : "tr";
+    onLangChange?.(next);
   };
 
   return (
-    <header
-      className={`sticky top-0 z-40 w-full transition-all duration-500 ${
-        scrolled
-          ? "border-b border-[rgba(0,0,0,0.06)] dark:border-[rgba(255,255,255,0.05)] shadow-[0_1px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_1px_20px_rgba(0,0,0,0.3)]"
-          : "border-b border-transparent"
-      }`}
-      style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
-    >
-      <div className="mx-auto flex max-w-7xl h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <Link href="/blog" className="flex items-center gap-3 group">
-          {/* Animated dot */}
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75" style={{ animation: "neon-ping 1.5s cubic-bezier(0,0,0.2,1) infinite" }} />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-600 dark:bg-indigo-400" />
-          </span>
-          <span
-            className="text-base font-black tracking-tighter transition-colors duration-500 select-none"
-            style={{ color: theme === "dark" ? "#F5F5F7" : "#0D0E12", letterSpacing: "-0.04em" }}
-          >
-            EVENT HORIZON
-          </span>
-        </Link>
+    <>
+      <header
+        className="glass-nav sticky top-0 z-40 w-full transition-theme"
+        style={{
+          borderBottom: scrolled
+            ? "1px solid var(--border-color)"
+            : "1px solid transparent",
+          boxShadow: scrolled ? "var(--glass-shadow)" : "none",
+        }}
+      >
+        <div className="mx-auto flex max-w-7xl h-15 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4"
+          style={{ height: "60px" }}>
 
-        {/* Navigation + Controls */}
-        <div className="flex items-center gap-5">
-          <nav className="flex items-center gap-5 font-mono text-[11px]">
+          {/* ── Logo ── */}
+          <Link href="/blog" className="flex items-center gap-2.5 shrink-0">
+            <span
+              className="relative flex h-1.5 w-1.5"
+              style={{ flexShrink: 0 }}
+            >
+              <span
+                className="absolute inline-flex h-full w-full rounded-full"
+                style={{
+                  background: "var(--foreground-muted)",
+                  animation: "ping-soft 2s cubic-bezier(0,0,0.2,1) infinite",
+                  opacity: 0.6,
+                }}
+              />
+              <span
+                className="relative inline-flex rounded-full h-1.5 w-1.5"
+                style={{ background: "var(--foreground-muted)" }}
+              />
+            </span>
+            <span
+              style={{
+                fontSize: "14px",
+                fontWeight: 800,
+                letterSpacing: "-0.04em",
+                color: "var(--foreground)",
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              }}
+            >
+              EVENT HORIZON
+            </span>
+          </Link>
+
+          {/* ── Centre nav ── */}
+          <nav className="hidden md:flex items-center gap-1" style={{ fontSize: "12px" }}>
             {isArticle ? (
               <Link
                 href="/blog"
-                className="flex items-center gap-1.5 text-[color:var(--foreground-muted)] hover:text-[color:var(--foreground)] transition-colors duration-300 font-semibold"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-theme"
+                style={{ color: "var(--foreground-muted)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "var(--foreground)"; e.currentTarget.style.background = "var(--glass-bg)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = "var(--foreground-muted)"; e.currentTarget.style.background = "transparent"; }}
               >
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
                 </svg>
-                GERİ DÖN
+                {t.back}
               </Link>
             ) : (
               <>
                 <Link
                   href="/blog"
-                  className="text-[color:var(--foreground)] hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300 font-semibold uppercase tracking-wider"
+                  className="px-3 py-1.5 rounded-lg transition-theme font-medium"
+                  style={{ color: "var(--foreground)", fontSize: "12px" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                 >
-                  Arşiv
+                  {t.archives}
                 </Link>
-                <a
-                  href="#"
-                  className="text-[color:var(--foreground-muted)] hover:text-[color:var(--foreground)] transition-colors duration-300 uppercase tracking-wider"
-                >
-                  İndeks
-                </a>
+
+                {/* Modules dropdown */}
+                <div ref={dropdownRef} style={{ position: "relative" }}>
+                  <button
+                    id="modules-btn"
+                    onClick={() => setDropdownOpen((v) => !v)}
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg transition-theme"
+                    style={{
+                      color: dropdownOpen ? "var(--foreground)" : "var(--foreground-muted)",
+                      background: dropdownOpen ? "var(--glass-bg)" : "transparent",
+                      fontSize: "12px", border: "none", cursor: "pointer",
+                      fontFamily: "inherit",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; }}
+                    onMouseLeave={(e) => {
+                      if (!dropdownOpen) {
+                        e.currentTarget.style.background = "transparent";
+                        e.currentTarget.style.color = "var(--foreground-muted)";
+                      }
+                    }}
+                  >
+                    {t.modules}
+                    <svg
+                      width="10" height="10" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                      style={{ transition: "transform 0.2s ease", transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                    >
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </button>
+
+                  {dropdownOpen && (
+                    <div className="dropdown-menu" style={{ minWidth: "240px" }}>
+                      {CATEGORIES.map((cat) => (
+                        cat.href ? (
+                          <Link
+                            key={cat.key}
+                            href={cat.href}
+                            className="dropdown-item"
+                            onClick={() => setDropdownOpen(false)}
+                          >
+                            <span style={{ fontSize: "14px" }}>{cat.icon}</span>
+                            <span>{lang === "en" ? cat.en : cat.tr}</span>
+                          </Link>
+                        ) : (
+                          <div key={cat.key} className="dropdown-item">
+                            <span style={{ fontSize: "14px" }}>{cat.icon}</span>
+                            <span>{lang === "en" ? cat.en : cat.tr}</span>
+                          </div>
+                        )
+                      ))}
+                    </div>
+                  )}
+                </div>
               </>
             )}
           </nav>
 
-          {/* Theme Toggle */}
-          <button
-            id="theme-toggle-btn"
-            onClick={toggleTheme}
-            aria-label="Temayı Değiştir"
-            className="relative flex h-8 w-8 items-center justify-center rounded-lg border transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
-            style={{
-              borderColor: "var(--border-color)",
-              color: "var(--foreground-muted)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--accent)";
-              e.currentTarget.style.color = "var(--accent)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "var(--border-color)";
-              e.currentTarget.style.color = "var(--foreground-muted)";
-            }}
-          >
-            <span className="transition-all duration-500" style={{ transform: theme === "dark" ? "rotate(0deg)" : "rotate(180deg)" }}>
+          {/* ── Right controls ── */}
+          <div className="flex items-center gap-2 shrink-0">
+
+            {/* Search button */}
+            <button
+              id="search-btn"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Ara"
+              className="flex items-center justify-center rounded-lg transition-theme"
+              style={{
+                width: "34px", height: "34px",
+                border: "1px solid var(--border-color)",
+                background: "transparent", cursor: "pointer",
+                color: "var(--foreground-muted)",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; e.currentTarget.style.borderColor = "var(--border-hover)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; e.currentTarget.style.borderColor = "var(--border-color)"; }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </button>
+
+            {/* Language toggle */}
+            <button
+              id="lang-toggle-btn"
+              onClick={toggleLang}
+              aria-label="Dil Değiştir"
+              className="flex items-center gap-1 rounded-lg transition-theme"
+              style={{
+                height: "34px", padding: "0 10px",
+                border: "1px solid var(--border-color)",
+                background: "transparent", cursor: "pointer",
+                color: "var(--foreground-muted)",
+                fontSize: "11px", fontFamily: "var(--font-geist-mono), monospace",
+                fontWeight: 600, letterSpacing: "0.04em",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; e.currentTarget.style.borderColor = "var(--border-hover)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; e.currentTarget.style.borderColor = "var(--border-color)"; }}
+            >
+              <span style={{ opacity: lang === "tr" ? 1 : 0.4, transition: "opacity 0.3s" }}>TR</span>
+              <span style={{ color: "var(--border-hover)" }}>/</span>
+              <span style={{ opacity: lang === "en" ? 1 : 0.4, transition: "opacity 0.3s" }}>EN</span>
+            </button>
+
+            {/* Theme toggle */}
+            <button
+              id="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label="Temayı Değiştir"
+              className="flex items-center justify-center rounded-lg transition-theme"
+              style={{
+                width: "34px", height: "34px",
+                border: "1px solid var(--border-color)",
+                background: "transparent", cursor: "pointer",
+                color: "var(--foreground-muted)",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; e.currentTarget.style.borderColor = "var(--border-hover)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; e.currentTarget.style.borderColor = "var(--border-color)"; }}
+            >
               {theme === "dark" ? (
-                /* Sun icon */
-                <svg className="h-[15px] w-[15px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="4" />
-                  <path strokeLinecap="round" d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                /* Sun */
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <circle cx="12" cy="12" r="4"/>
+                  <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                  <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
                 </svg>
               ) : (
-                /* Moon icon */
-                <svg className="h-[15px] w-[15px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                /* Moon */
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                 </svg>
               )}
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Search modal */}
+      <SearchModal
+        isOpen={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        lang={lang}
+      />
+    </>
   );
 }
