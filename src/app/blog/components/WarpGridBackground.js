@@ -41,7 +41,7 @@ export default function WarpGridBackground() {
       ctx.fillRect(0, 0, width, height);
 
       // Line color styling
-      const strokeColor = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.06)";
+      const strokeColor = isDark ? "rgba(255, 255, 255, 0.20)" : "rgba(0, 0, 0, 0.15)";
       ctx.strokeStyle = strokeColor;
       ctx.lineWidth = 0.8;
 
