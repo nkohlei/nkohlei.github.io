@@ -403,7 +403,7 @@ export default function CalculationsPage() {
   }[lang];
 
   return (
-    <div className="min-h-screen transition-theme" style={{ background: "var(--background)", color: "var(--foreground)" }}>
+    <div className="min-h-screen transition-theme" style={{ color: "var(--foreground)" }}>
       <ReadingProgressBar />
       <Header isArticle={false} lang={lang} onLangChange={setLang} />
 

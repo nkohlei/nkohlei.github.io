@@ -45,7 +45,7 @@ export default function BlogHome() {
   const T = HERO_TEXT[lang];
 
   return (
-    <div className="relative min-h-screen transition-theme" style={{ background: "var(--background)", color: "var(--foreground)" }}>
+    <div className="relative min-h-screen transition-theme" style={{ color: "var(--foreground)" }}>
       {/* ── Cosmic background mesh (fixed, pointer-events:none) ── */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
         <div style={{
