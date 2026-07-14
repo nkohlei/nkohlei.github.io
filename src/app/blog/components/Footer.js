@@ -28,7 +28,7 @@ export default function Footer({ lang = "tr" }) {
       {/* Partner logos — lives above the footer divider */}
       <PartnerLogos lang={lang} />
 
-      <footer style={{ borderTop: "1px solid var(--border-color)" }}>
+      <footer className="glass-nav transition-theme" style={{ borderTop: "1px solid var(--border-color)" }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
           {/* Top row */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8"

@@ -272,7 +272,7 @@ export default function PartnerLogos({ lang = "tr" }) {
     : "Bilim ve keşfin sınırlarını belirleyen kuruluşlar";
 
   return (
-    <section style={{ paddingTop: "64px", paddingBottom: "64px", borderTop: "1px solid var(--border-color)" }}>
+    <section className="glass-nav transition-theme" style={{ paddingTop: "64px", paddingBottom: "64px", borderTop: "1px solid var(--border-color)" }}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-10">

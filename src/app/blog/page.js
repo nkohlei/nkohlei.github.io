@@ -209,7 +209,7 @@ function SectionLabel({ children, dot = "muted" }) {
 function AdPlaceholder({ label, size, mb }) {
   return (
     <div
-      className={`py-6 px-4 text-center rounded-xl transition-all border-2 border-dashed border-zinc-300 dark:border-zinc-800 bg-neutral-100/70 dark:bg-zinc-950/20 flex flex-col items-center justify-center min-h-[140px] ${mb ? "mb-12" : ""}`}
+      className={`py-6 px-4 text-center rounded-xl transition-all border-2 border-dashed border-zinc-300 dark:border-zinc-800 glass-card flex flex-col items-center justify-center min-h-[140px] ${mb ? "mb-12" : ""}`}
     >
       <span 
         className="text-[10px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-650 uppercase mb-4 block"
