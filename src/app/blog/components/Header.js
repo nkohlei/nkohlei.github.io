@@ -4,17 +4,24 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import SearchModal from "./SearchModal";
 
-/* ── Category data ── */
-const CATEGORIES = [
-  { icon: "🌌", key: "physics",   tr: "Teorik Fizik",           en: "Theoretical Physics" },
-  { icon: "🚀", key: "cosmo",     tr: "Kozmoloji & Uzay",        en: "Cosmology & Space" },
-  { icon: "🏔️", key: "extreme",   tr: "Ekstrem Doğa Fiziği",    en: "Extreme Adventure" },
-  { icon: "📊", key: "calc",      tr: "Analiz & Hesaplama",      en: "Analysis Portal",  href: "/calculations" },
+/* ── Left nav items (non-article pages) ── */
+const LEFT_NAV = [
+  { key: "analyses", tr: "Analizler",  en: "Analyses",   href: "/blog" },
+  { key: "explore",  tr: "Keşifler",   en: "Explorations", href: "/blog#tum" },
+];
+
+/* ── Modules dropdown entries ── */
+const MODULES_ITEMS = [
+  { icon: "🌌", key: "physics",   tr: "Teorik Fizik",           en: "Theoretical Physics",       href: "/blog" },
+  { icon: "🚀", key: "cosmo",     tr: "Kozmoloji & Uzay",        en: "Cosmology & Space",         href: "/blog" },
+  { icon: "🏔️", key: "extreme",   tr: "Ekstrem Doğa Fiziği",    en: "Extreme Adventure",         href: "/blog" },
+  { icon: "⚫", key: "bh",        tr: "Kozmik Simülatör",        en: "Cosmic Simulator",          href: "/calculations" },
+  { icon: "📊", key: "alt",       tr: "İrtifa Hesaplayıcı",      en: "Altitude Calculator",       href: "/calculations" },
 ];
 
 const NAV_LABELS = {
-  tr: { archives: "Arşiv", index: "İndeks", modules: "Modüller", back: "Geri Dön" },
-  en: { archives: "Archive", index: "Index", modules: "Modules", back: "Go Back" },
+  tr: { modules: "Modüller", back: "← Geri Dön" },
+  en: { modules: "Modules",  back: "← Go Back"  },
 };
 
 export default function Header({ isArticle = false, lang = "tr", onLangChange }) {
@@ -81,121 +88,95 @@ export default function Header({ isArticle = false, lang = "tr", onLangChange })
         <div className="mx-auto flex max-w-7xl h-15 items-center justify-between px-4 sm:px-6 lg:px-8 gap-4"
           style={{ height: "60px" }}>
 
-          {/* ── Logo ── */}
-          <Link href="/blog" className="flex items-center gap-2.5 shrink-0">
-            <span
-              className="relative flex h-1.5 w-1.5"
-              style={{ flexShrink: 0 }}
-            >
-              <span
-                className="absolute inline-flex h-full w-full rounded-full"
-                style={{
-                  background: "var(--foreground-muted)",
-                  animation: "ping-soft 2s cubic-bezier(0,0,0.2,1) infinite",
-                  opacity: 0.6,
-                }}
-              />
-              <span
-                className="relative inline-flex rounded-full h-1.5 w-1.5"
-                style={{ background: "var(--foreground-muted)" }}
-              />
-            </span>
-            <span
-              style={{
-                fontSize: "14px",
-                fontWeight: 800,
-                letterSpacing: "-0.04em",
-                color: "var(--foreground)",
-                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-              }}
-            >
-              EVENT HORIZON
-            </span>
-          </Link>
+        {/* ── LEFT SECTION: Logo + primary nav ── */}
+          <div className="flex items-center gap-1">
+            {/* Logo */}
+            <Link href="/blog" className="flex items-center gap-2.5 shrink-0 mr-4">
+              <span className="relative flex h-1.5 w-1.5" style={{ flexShrink: 0 }}>
+                <span className="absolute inline-flex h-full w-full rounded-full"
+                  style={{ background: "var(--foreground-muted)", animation: "ping-soft 2s cubic-bezier(0,0,0.2,1) infinite", opacity: 0.6 }} />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5"
+                  style={{ background: "var(--foreground-muted)" }} />
+              </span>
+              <span style={{ fontSize: "14px", fontWeight: 800, letterSpacing: "-0.04em", color: "var(--foreground)", fontFamily: "var(--font-geist-sans), system-ui, sans-serif" }}>
+                EVENT HORIZON
+              </span>
+            </Link>
 
-          {/* ── Centre nav ── */}
-          <nav className="hidden md:flex items-center gap-1" style={{ fontSize: "12px" }}>
-            {isArticle ? (
-              <Link
-                href="/blog"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-theme"
-                style={{ color: "var(--foreground-muted)" }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "var(--foreground)"; e.currentTarget.style.background = "var(--glass-bg)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = "var(--foreground-muted)"; e.currentTarget.style.background = "transparent"; }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
-                </svg>
-                {t.back}
-              </Link>
-            ) : (
-              <>
-                <Link
-                  href="/blog"
-                  className="px-3 py-1.5 rounded-lg transition-theme font-medium"
-                  style={{ color: "var(--foreground)", fontSize: "12px" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-                >
-                  {t.archives}
-                </Link>
+            {/* Left nav — hidden on article pages and small screens */}
+            {!isArticle && (
+              <nav className="hidden md:flex items-center gap-0.5">
+                {LEFT_NAV.map((item) => (
+                  <Link
+                    key={item.key}
+                    href={item.href}
+                    className="px-3 py-1.5 rounded-lg"
+                    style={{ fontSize: "12px", color: "var(--foreground-muted)", textDecoration: "none", transition: "background 0.2s, color 0.2s" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; }}
+                  >
+                    {lang === "en" ? item.en : item.tr}
+                  </Link>
+                ))}
 
                 {/* Modules dropdown */}
                 <div ref={dropdownRef} style={{ position: "relative" }}>
                   <button
                     id="modules-btn"
                     onClick={() => setDropdownOpen((v) => !v)}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg transition-theme"
+                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg"
                     style={{
                       color: dropdownOpen ? "var(--foreground)" : "var(--foreground-muted)",
                       background: dropdownOpen ? "var(--glass-bg)" : "transparent",
                       fontSize: "12px", border: "none", cursor: "pointer",
                       fontFamily: "inherit",
+                      transition: "background 0.2s, color 0.2s",
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; }}
-                    onMouseLeave={(e) => {
-                      if (!dropdownOpen) {
-                        e.currentTarget.style.background = "transparent";
-                        e.currentTarget.style.color = "var(--foreground-muted)";
-                      }
-                    }}
+                    onMouseLeave={(e) => { if (!dropdownOpen) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; } }}
                   >
                     {t.modules}
-                    <svg
-                      width="10" height="10" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                      style={{ transition: "transform 0.2s ease", transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }}
-                    >
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                      style={{ transition: "transform 0.2s ease", transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
                       <polyline points="6 9 12 15 18 9"/>
                     </svg>
                   </button>
 
                   {dropdownOpen && (
-                    <div className="dropdown-menu" style={{ minWidth: "240px" }}>
-                      {CATEGORIES.map((cat) => (
-                        cat.href ? (
-                          <Link
-                            key={cat.key}
-                            href={cat.href}
-                            className="dropdown-item"
-                            onClick={() => setDropdownOpen(false)}
-                          >
-                            <span style={{ fontSize: "14px" }}>{cat.icon}</span>
-                            <span>{lang === "en" ? cat.en : cat.tr}</span>
-                          </Link>
-                        ) : (
-                          <div key={cat.key} className="dropdown-item">
-                            <span style={{ fontSize: "14px" }}>{cat.icon}</span>
-                            <span>{lang === "en" ? cat.en : cat.tr}</span>
-                          </div>
-                        )
+                    <div className="dropdown-menu" style={{ minWidth: "240px", left: 0, transform: "none" }}>
+                      {MODULES_ITEMS.map((item) => (
+                        <Link
+                          key={item.key}
+                          href={item.href}
+                          className="dropdown-item"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          <span style={{ fontSize: "14px" }}>{item.icon}</span>
+                          <span>{lang === "en" ? item.en : item.tr}</span>
+                        </Link>
                       ))}
                     </div>
                   )}
                 </div>
-              </>
+              </nav>
             )}
-          </nav>
+
+            {/* Back link — article page only */}
+            {isArticle && (
+              <Link
+                href="/blog"
+                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg"
+                style={{ fontSize: "12px", color: "var(--foreground-muted)", textDecoration: "none", transition: "color 0.2s" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "var(--foreground)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = "var(--foreground-muted)"; }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+                </svg>
+                {t.back}
+              </Link>
+            )}
+          </div>
 
           {/* ── Right controls ── */}
           <div className="flex items-center gap-2 shrink-0">

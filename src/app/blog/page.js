@@ -39,12 +39,41 @@ const HERO_TEXT = {
 export default function BlogHome() {
   const [lang, setLang] = useState("tr");
 
-  const featuredPost  = posts[0];
-  const indexPosts    = posts.slice(1);
+  const featuredPost = posts[0];
+  const indexPosts   = posts.slice(1, 3);    // posts 2–3 in right index
+  const gridPosts    = posts.slice(3);        // posts 4–6 exclusively in visual grid
   const T = HERO_TEXT[lang];
 
   return (
-    <div className="min-h-screen transition-theme" style={{ background: "var(--background)", color: "var(--foreground)" }}>
+    <div className="relative min-h-screen transition-theme" style={{ background: "var(--background)", color: "var(--foreground)" }}>
+      {/* ── Cosmic background mesh (fixed, pointer-events:none) ── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
+        <div style={{
+          position: "absolute", top: "-15%", left: "-10%",
+          width: "700px", height: "700px", borderRadius: "50%",
+          background: "radial-gradient(ellipse at center, rgba(99,102,241,0.055) 0%, transparent 65%)",
+          filter: "blur(40px)",
+          animation: "mesh-drift 25s ease-in-out infinite",
+        }} />
+        <div style={{
+          position: "absolute", top: "35%", right: "-20%",
+          width: "600px", height: "600px", borderRadius: "50%",
+          background: "radial-gradient(ellipse at center, rgba(139,92,246,0.045) 0%, transparent 65%)",
+          filter: "blur(60px)",
+          animation: "mesh-drift 32s ease-in-out infinite reverse",
+        }} />
+        <div style={{
+          position: "absolute", bottom: "5%", left: "25%",
+          width: "800px", height: "400px", borderRadius: "50%",
+          background: "radial-gradient(ellipse at center, rgba(14,165,233,0.035) 0%, transparent 65%)",
+          filter: "blur(80px)",
+          animation: "mesh-drift 40s ease-in-out infinite",
+          animationDelay: "-10s",
+        }} />
+      </div>
+
+      {/* Content above mesh */}
+      <div style={{ position: "relative", zIndex: 1 }}>
       {/* Reading progress */}
       <ReadingProgressBar />
 
@@ -134,11 +163,11 @@ export default function BlogHome() {
           </div>
         </div>
 
-        {/* ── ALL ARTICLES — VISUAL GRID 3 col ── */}
+        {/* ── ALL ARTICLES — VISUAL GRID 3 col (new posts only) ── */}
         <section className="mb-20 animate-fade-in-up-delay-2">
           <SectionLabel dot="muted">{T.gridLabel}</SectionLabel>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
-            {posts.map((p) => (
+            {gridPosts.map((p) => (
               <GridCard key={p.id} post={p} lang={lang} />
             ))}
           </div>
@@ -155,6 +184,7 @@ export default function BlogHome() {
 
       <Footer lang={lang} />
       <CookieConsent lang={lang} />
+      </div>{/* end z-index wrapper */}
     </div>
   );
 }

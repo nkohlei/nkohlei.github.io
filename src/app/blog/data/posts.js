@@ -69,5 +69,44 @@ export const posts = [
       <h2 class="text-2xl font-bold text-white mt-8 mb-4">Kozmik Boşluklar (Voids)</h2>
       <p class="text-zinc-300 mb-4">İplikçiklerin çevrelediği devasa, karanlık alanlara kozmik boşluklar (voids) denir. Bu bölgeler o kadar seyrektir ki, metreküp başına düşen madde miktarı evren ortalamasının çok altındadır. Örneğin Bootes Boşluğu (Bootes Void), yaklaşık 330 milyon ışık yılı çapındadır ve içinde neredeyse hiç galaksi barındırmaz. Bu boşlukların incelenmesi, karanlık enerjinin genişleme hızını ve evrenin ivmelenmesini anlamamızda kritik rol oynamaktadır.</p>
     `
+  },
+  {
+    id: 4,
+    title: "Karanlık Madde Haleleri ve Galaktik Dönme Eğrileri",
+    slug: "karanlik-madde-haleleri-galaktik-donme-egrisi",
+    excerpt: "Galaksilerin dış kollarındaki yıldızların beklenmedik derecede yüksek yörünge hızları, görünür kütlenin çok ötesinde bir kütle dağılımına işaret eder. Karanlık madde halelerinin morfolojisi ve Vera Rubin'in tarihi keşfi.",
+    category: "Kozmoloji",
+    readTime: "11 dk okuma",
+    date: "8 Temmuz 2026",
+    image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
+    content: `<p class="lead text-lg text-zinc-300 mb-6">Galaksilerin dış bölgelerindeki yıldızların dönme hızları, Newton yerçekimi yasaları çerçevesinde beklenenden çok daha yüksektir. Bu anomali, "düz" dönme eğrilerinin varlığına işaret eder ve görünür baryonik maddenin ötesinde büyük miktarda kütlenin varlığını zorunlu kılmaktadır.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Karanlık Madde Kanıtları</h2>
+      <p class="text-zinc-300 mb-4">Vera Rubin ve Kent Ford'un 1970'lerdeki gözlemleri, Andromeda galaksisinin dış kollarındaki yıldızların galaktik merkeze yakın yıldızlarla neredeyse aynı hızda döndüğünü ortaya koymuştur. Bu, görünür madde dağılımının öngördüğü Kepler dönme profilinden tamamen farklıdır.</p>`
+  },
+  {
+    id: 5,
+    title: "K2 Dağının Ölüm Bölgesinde Oksijensiz Solunum Fiziği",
+    slug: "k2-daginda-oksijensiz-solunum-fizigi",
+    excerpt: "Dünyanın en tehlikeli zirvesi K2'nin 8611 metresinde oksijensiz çıkışlarda gerçekleşen alveolar gaz değişimi, mitokondriyal solunum zinciri çöküşü ve serebral hipoksi mekanizmaları.",
+    category: "Ekstrem Doğa Fiziği",
+    readTime: "13 dk okuma",
+    date: "6 Temmuz 2026",
+    image: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=800&q=80",
+    content: `<p class="lead text-lg text-zinc-300 mb-6">K2'nin 8611 metrelik zirvesinde kısmi oksijen basıncı 33 kPa'ya düşer — deniz seviyesindeki değerin yaklaşık üçte biri. Bu koşulda alveolar PO₂ 35 mmHg civarına geriler ve hemoglobin doygunluğu kritik eşiğin altına iner.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Mitokondriyal Solunum Zinciri Çöküşü</h2>
+      <p class="text-zinc-300 mb-4">Bu seviyede sitokrom c oksidaz enziminin oksijen affinitesi sınıra ulaşır. Aerobik metabolizma hızla yerini anaerobik yolağa bırakır ve laktik asidoz başlar. Serebral otoregülasyon mekanizmaları hipoksiyi telafi etmeye çalışırken beyin ödemi riski üstel olarak artar.</p>`
+  },
+  {
+    id: 6,
+    title: "Kuantum Tünelleme ve Biyolojik Mutasyon İlişkileri",
+    slug: "kuantum-tunelleme-biyolojik-mutasyon",
+    excerpt: "DNA polimerazının hata düzeltme mekanizmalarındaki proton transferleri sırasında gerçekleşen kuantum tünelleme olayları, spontan mutasyon oranlarını nasıl belirliyor?",
+    category: "Teorik Fizik",
+    readTime: "14 dk okuma",
+    date: "4 Temmuz 2026",
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
+    content: `<p class="lead text-lg text-zinc-300 mb-6">DNA'daki Watson-Crick baz çiftlerini bir arada tutan tautomerik protonların, enerji bariyeri altından kuantum mekanik tünelleme ile geçebileceği hipotezi Löwdin tarafından 1963 yılında önerilmiştir. Bu süreç, spontan mutasyonların kaynaklarından biri olabilir.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Proton Tünellemesi Mekanizması</h2>
+      <p class="text-zinc-300 mb-4">Adenin-Timin baz çiftindeki keto-enol tautomerizasyonu, protonun hidrojen bağı boyunca klasik termal aktivasyon olmaksızın geçişine yol açabilir. Eğer bu tautomer hali DNA replikasyonu sırasında şablon görevi görürse, yanlış baz eşleşmesi ve dolayısıyla mutasyon meydana gelebilir.</p>`
   }
 ];
