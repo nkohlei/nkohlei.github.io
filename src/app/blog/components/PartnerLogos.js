@@ -164,6 +164,19 @@ const PARTNERS = [
     ),
   },
   {
+    id: "arcteryx",
+    url: "https://www.arcteryx.com",
+    label: "Arc'teryx",
+    color: "#808080",
+    svg: (
+      <svg viewBox="0 0 100 38" fill="currentColor" aria-label="Arc'teryx">
+        {/* Simple silhouette representing the classic Archaeopteryx logo skeleton */}
+        <path d="M5 25c10-2 15-8 18-14 1-2-1-4-3-3-5 2-10 6-12 11h-3zm18-14c1 2 4 4 6 1 2-3 1-6-1-7s-4 2-5 6zm8-3c3 1 6-2 5-5-1-2-4-2-6 0s-2 4 1 5zm8 15c2-3 2-8-1-11-2-2-5 0-5 3 0 4 3 6 6 8zm10-5c1-3-1-6-4-6s-4 3-3 6 2 4 7 0zm10 8c0-4-3-6-6-4-2 2-1 6 2 6s4-2 4-2z" />
+        <text x="58" y="24" fontSize="11" fontWeight="900" fontFamily="Arial, sans-serif" letterSpacing="0.5" fill="currentColor">ARC'TERYX</text>
+      </svg>
+    ),
+  },
+  {
     id: "garmin",
     url: "https://www.garmin.com",
     label: "Garmin",
