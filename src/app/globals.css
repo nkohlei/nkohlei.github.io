@@ -1,9 +1,21 @@
 @import "tailwindcss";
 
 :root {
+  --background: #faf9f6;
+  --foreground: #111215;
+  --accent: #2563eb;
+  --border-color: rgba(0, 0, 0, 0.06);
+  --grid-color: rgba(0, 0, 0, 0.015);
+  --panel-bg: rgba(0, 0, 0, 0.015);
+}
+
+.dark {
   --background: #0d0e12;
   --foreground: #f3f4f6;
   --accent: #3b82f6;
+  --border-color: rgba(255, 255, 255, 0.05);
+  --grid-color: rgba(255, 255, 255, 0.01);
+  --panel-bg: rgba(255, 255, 255, 0.02);
 }
 
 @theme inline {
@@ -15,12 +27,13 @@
 body {
   background-color: var(--background);
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 40px 40px;
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom premium scrollbar */
@@ -28,31 +41,44 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d0e12;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--border-color);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: var(--accent);
 }
 
 /* Glassmorphism custom classes */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--panel-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-panel-hover {
+  border: 1px solid var(--border-color);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-panel-hover:hover {
   background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  border-color: var(--accent);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   transform: translateY(-1px);
+}
+
+/* Page load animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
