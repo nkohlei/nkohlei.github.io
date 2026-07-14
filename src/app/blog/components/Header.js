@@ -7,7 +7,7 @@ import SearchModal from "./SearchModal";
 /* ── Left nav items (non-article pages) ── */
 const LEFT_NAV = [
   { key: "analyses", tr: "Analizler",  en: "Analyses",   href: "/blog" },
-  { key: "explore",  tr: "Keşifler",   en: "Explorations", href: "/blog#tum" },
+  { key: "calculations", tr: "Hesaplama Araçları", en: "Calculation Tools", href: "/calculations" },
 ];
 
 /* ── Modules dropdown entries ── */

@@ -209,18 +209,22 @@ function SectionLabel({ children, dot = "muted" }) {
 function AdPlaceholder({ label, size, mb }) {
   return (
     <div
-      className={`py-5 px-4 text-center font-mono rounded-xl${mb ? " mb-12" : ""}`}
-      style={{ border: "1px dashed var(--border-color)", background: "transparent" }}
+      className={`py-6 px-4 text-center rounded-xl transition-all border-2 border-dashed border-zinc-300 dark:border-zinc-800 bg-neutral-100/70 dark:bg-zinc-950/20 flex flex-col items-center justify-center min-h-[140px] ${mb ? "mb-12" : ""}`}
     >
-      <span className="block text-[9px] uppercase tracking-widest mb-2" style={{ color: "var(--foreground-subtle)", opacity: 0.5 }}>
-        // {label} //
+      <span 
+        className="text-[10px] font-bold tracking-[0.25em] text-zinc-400 dark:text-zinc-650 uppercase mb-4 block"
+        style={{ fontFamily: "var(--font-geist-mono), monospace" }}
+      >
+        // ADVERTISEMENT SPACE //
       </span>
       <div
-        className="mx-auto flex items-center justify-center rounded-lg"
-        style={{ height: "56px", maxWidth: "800px", border: "1px dashed var(--border-color)" }}
+        className="w-full max-w-[728px] h-[64px] border border-dashed border-zinc-200 dark:border-zinc-900 rounded-lg flex items-center justify-center transition-all bg-white/40 dark:bg-black/20"
       >
-        <span className="text-[9px] uppercase tracking-widest" style={{ color: "var(--foreground-subtle)", opacity: 0.35 }}>
-          {size}
+        <span 
+          className="text-xs font-semibold tracking-wider text-zinc-500 dark:text-zinc-450"
+          style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
+        >
+          {label} ({size})
         </span>
       </div>
     </div>

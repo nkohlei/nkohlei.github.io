@@ -90,6 +90,20 @@ const PARTNERS = [
     ),
   },
   {
+    id: "natgeo",
+    url: "https://www.nationalgeographic.com",
+    label: "National Geographic",
+    color: "#FFCC00",
+    /* National Geographic yellow rectangle mark */
+    svg: (
+      <svg viewBox="0 0 80 38" fill="currentColor" aria-label="National Geographic">
+        <rect x="4" y="4" width="16" height="30" rx="1" fill="currentColor"/>
+        <text x="24" y="16" fontSize="8" fontWeight="700" fontFamily="Arial, sans-serif" fill="currentColor">NATIONAL</text>
+        <text x="24" y="26" fontSize="8" fontWeight="700" fontFamily="Arial, sans-serif" fill="currentColor">GEOGRAPHIC</text>
+      </svg>
+    ),
+  },
+  {
     id: "patagonia",
     url: "https://www.patagonia.com",
     label: "Patagonia",
@@ -102,6 +116,25 @@ const PARTNERS = [
         {/* Wordmark */}
         <text x="45" y="26" fontSize="14" fontWeight="800" fontFamily="Arial, sans-serif"
           letterSpacing="0.5" fill="currentColor">PATAGONIA</text>
+      </svg>
+    ),
+  },
+  {
+    id: "arcteryx",
+    url: "https://www.arcteryx.com",
+    label: "Arc'teryx",
+    color: "#C5A880", // Premium gold/bronze tint
+    svg: (
+      <svg viewBox="0 0 120 38" fill="currentColor" aria-label="Arc'teryx">
+        <g transform="translate(6, 4) scale(0.75)">
+          <path d="M12,4 C14,4 16,6 16,8 C16,9 15,10 13,11 C11,12 8,11 8,9 C8,6 10,4 12,4 Z" />
+          <path d="M12,9 L12,28" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M8,13 C10,13 14,13 16,13 M7,16 C10,16 14,16 17,16 M6,19 C10,19 14,19 18,19 M6,22 C10,22 14,22 18,22 M7,25 C10,25 14,25 17,25" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M8,11 C4,8 0,11 2,15 C4,19 8,20 10,18 M4,12 C1,14 1,18 4,20" stroke="currentColor" strokeWidth="1" fill="none" />
+          <path d="M16,11 C20,8 24,11 22,15 C20,19 16,20 14,18 M20,12 C23,14 23,18 20,20" stroke="currentColor" strokeWidth="1" fill="none" />
+          <path d="M12,28 C10,31 8,34 8,36 M12,28 C12,32 12,35 12,37 M12,28 C14,31 16,34 16,36" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </g>
+        <text x="36" y="24" fontSize="11" fontWeight="800" fontFamily="Arial, sans-serif" letterSpacing="1.5" fill="currentColor">ARC'TERYX</text>
       </svg>
     ),
   },
@@ -150,20 +183,6 @@ const PARTNERS = [
     ),
   },
   {
-    id: "natgeo",
-    url: "https://www.nationalgeographic.com",
-    label: "Nat Geo",
-    color: "#FFCC00",
-    /* National Geographic yellow rectangle mark */
-    svg: (
-      <svg viewBox="0 0 80 38" fill="currentColor" aria-label="National Geographic">
-        <rect x="4" y="4" width="16" height="30" rx="1" fill="currentColor"/>
-        <text x="24" y="16" fontSize="8" fontWeight="700" fontFamily="Arial, sans-serif" fill="currentColor">NATIONAL</text>
-        <text x="24" y="26" fontSize="8" fontWeight="700" fontFamily="Arial, sans-serif" fill="currentColor">GEOGRAPHIC</text>
-      </svg>
-    ),
-  },
-  {
     id: "garmin",
     url: "https://www.garmin.com",
     label: "Garmin",
@@ -204,23 +223,28 @@ function LogoItem({ partner }) {
         height: "56px",
         minWidth: "100px",
         textDecoration: "none",
-        transition: "color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1)",
+        transition: "color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, backdrop-filter 0.3s ease",
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.color = partner.color;
         e.currentTarget.style.borderColor = `${partner.color}35`;
         e.currentTarget.style.background = `${partner.color}0A`;
-        e.currentTarget.style.transform = "translateY(-3px)";
+        e.currentTarget.style.transform = "translateY(-4px)";
+        e.currentTarget.style.boxShadow = `0 10px 20px ${partner.color}15, 0 0 12px ${partner.color}10`;
+        e.currentTarget.style.backdropFilter = "blur(16px)";
+        e.currentTarget.style.WebkitBackdropFilter = "blur(16px)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.color = "var(--foreground-subtle)";
         e.currentTarget.style.borderColor = "var(--glass-border)";
         e.currentTarget.style.background = "var(--glass-bg)";
         e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "none";
+        e.currentTarget.style.backdropFilter = "blur(8px)";
+        e.currentTarget.style.WebkitBackdropFilter = "blur(8px)";
       }}
     >
       <div style={{ height: "24px", width: "auto", display: "flex", alignItems: "center" }}>
-        {/* Clone the SVG and inject sizing */}
         {partner.svg}
       </div>
     </a>
