@@ -18,8 +18,8 @@
   --border-hover: rgba(0, 0, 0, 0.14);
   --grid-color: rgba(0, 0, 0, 0.022);
   /* Glass cards: nearly transparent over light bg */
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-bg-hover: rgba(255, 255, 255, 0.25);
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-bg-hover: rgba(255, 255, 255, 0.50);
   --glass-border: rgba(0, 0, 0, 0.07);
   --glass-border-hover: rgba(0, 0, 0, 0.12);
   --glass-shadow: 0 2px 8px rgba(0, 0, 0, 0.02), 0 8px 32px rgba(0, 0, 0, 0.02);
