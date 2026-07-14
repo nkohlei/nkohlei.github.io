@@ -103,69 +103,72 @@ export default function Header({ isArticle = false, lang = "tr", onLangChange })
               </span>
             </Link>
 
-            {/* Left nav — hidden on article pages and small screens */}
-            {!isArticle && (
-              <nav className="hidden md:flex items-center gap-0.5">
-                {LEFT_NAV.map((item) => (
-                  <Link
-                    key={item.key}
-                    href={item.href}
-                    className="px-3 py-1.5 rounded-lg"
-                    style={{ fontSize: "12px", color: "var(--foreground-muted)", textDecoration: "none", transition: "background 0.2s, color 0.2s" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; }}
-                  >
-                    {lang === "en" ? item.en : item.tr}
-                  </Link>
-                ))}
+            {/* Left nav — always visible on all screens & pages */}
+            <nav className="flex items-center gap-1 sm:gap-2">
+              {LEFT_NAV.map((item) => (
+                <Link
+                  key={item.key}
+                  href={item.href}
+                  className="px-2 sm:px-3 py-1.5 rounded-lg font-semibold"
+                  style={{
+                    fontSize: "12px",
+                    color: "var(--foreground-muted)",
+                    textDecoration: "none",
+                    transition: "background 0.2s, color 0.2s"
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; }}
+                >
+                  {lang === "en" ? item.en : item.tr}
+                </Link>
+              ))}
 
-                {/* Modules dropdown */}
-                <div ref={dropdownRef} style={{ position: "relative" }}>
-                  <button
-                    id="modules-btn"
-                    onClick={() => setDropdownOpen((v) => !v)}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-lg"
-                    style={{
-                      color: dropdownOpen ? "var(--foreground)" : "var(--foreground-muted)",
-                      background: dropdownOpen ? "var(--glass-bg)" : "transparent",
-                      fontSize: "12px", border: "none", cursor: "pointer",
-                      fontFamily: "inherit",
-                      transition: "background 0.2s, color 0.2s",
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; }}
-                    onMouseLeave={(e) => { if (!dropdownOpen) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; } }}
-                  >
-                    {t.modules}
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
-                      style={{ transition: "transform 0.2s ease", transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
-                      <polyline points="6 9 12 15 18 9"/>
-                    </svg>
-                  </button>
+              {/* Modules dropdown — desktop only */}
+              <div ref={dropdownRef} className="hidden md:block" style={{ position: "relative" }}>
+                <button
+                  id="modules-btn"
+                  onClick={() => setDropdownOpen((v) => !v)}
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg"
+                  style={{
+                    color: dropdownOpen ? "var(--foreground)" : "var(--foreground-muted)",
+                    background: dropdownOpen ? "var(--glass-bg)" : "transparent",
+                    fontSize: "12px", border: "none", cursor: "pointer",
+                    fontFamily: "inherit",
+                    transition: "background 0.2s, color 0.2s",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--glass-bg)"; e.currentTarget.style.color = "var(--foreground)"; }}
+                  onMouseLeave={(e) => { if (!dropdownOpen) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--foreground-muted)"; } }}
+                >
+                  {t.modules}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                    style={{ transition: "transform 0.2s ease", transform: dropdownOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
 
-                  {dropdownOpen && (
-                    <div className="dropdown-menu" style={{ minWidth: "240px", left: 0, transform: "none" }}>
-                      {MODULES_ITEMS.map((item) => (
-                        <Link
-                          key={item.key}
-                          href={item.href}
-                          className="dropdown-item"
-                          onClick={() => setDropdownOpen(false)}
-                        >
-                          <span style={{ fontSize: "14px" }}>{item.icon}</span>
-                          <span>{lang === "en" ? item.en : item.tr}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </nav>
-            )}
+                {dropdownOpen && (
+                  <div className="dropdown-menu" style={{ minWidth: "240px", left: 0, transform: "none" }}>
+                    {MODULES_ITEMS.map((item) => (
+                      <Link
+                        key={item.key}
+                        href={item.href}
+                        className="dropdown-item"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <span style={{ fontSize: "14px" }}>{item.icon}</span>
+                        <span>{lang === "en" ? item.en : item.tr}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </nav>
 
-            {/* Back link — article page only */}
+            {/* Back link — article page only, desktop only */}
             {isArticle && (
               <Link
                 href="/blog"
-                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg"
+                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg ml-2"
                 style={{ fontSize: "12px", color: "var(--foreground-muted)", textDecoration: "none", transition: "color 0.2s" }}
                 onMouseEnter={(e) => { e.currentTarget.style.color = "var(--foreground)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.color = "var(--foreground-muted)"; }}

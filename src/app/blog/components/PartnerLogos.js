@@ -210,18 +210,18 @@ function LogoItem({ partner }) {
       title={partner.label}
       style={{
         display: "inline-flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "12px 20px",
+        padding: "10px 16px",
         borderRadius: "10px",
         border: "1px solid var(--glass-border)",
         background: "var(--glass-bg)",
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
         color: "var(--foreground-subtle)",
-        width: "auto",
-        height: "56px",
-        minWidth: "100px",
+        width: "140px",
+        height: "68px",
         textDecoration: "none",
         transition: "color 0.3s ease, border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, backdrop-filter 0.3s ease",
       }}
@@ -244,8 +244,22 @@ function LogoItem({ partner }) {
         e.currentTarget.style.WebkitBackdropFilter = "blur(8px)";
       }}
     >
-      <div style={{ height: "24px", width: "auto", display: "flex", alignItems: "center" }}>
-        {partner.svg}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "6px", width: "100%" }}>
+        <div style={{ height: "18px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {partner.svg}
+        </div>
+        <span 
+          style={{ 
+            fontSize: "10px", 
+            fontWeight: "700", 
+            fontFamily: "var(--font-geist-mono), monospace", 
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            opacity: 0.85
+          }}
+        >
+          {partner.label}
+        </span>
       </div>
     </a>
   );
