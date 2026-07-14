@@ -1,6 +1,6 @@
 "use client";
 
-import BlogCard from "./components/BlogCard";
+import BlogCard, { FeaturedCard, MinimalCard } from "./components/BlogCard";
 import SimulatorWidget from "./components/SimulatorWidget";
 import CookieConsent from "./components/CookieConsent";
 import ReadingProgressBar from "./components/ReadingProgressBar";
@@ -10,103 +10,236 @@ import { posts } from "./data/posts";
 
 export default function BlogHome() {
   const featuredPost = posts[0];
-  const remainingPosts = posts.slice(1);
+  const indexPosts = posts.slice(1);
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-      {/* Scroll Progress Bar */}
+    <div
+      className="min-h-screen transition-theme"
+      style={{ background: "var(--background)", color: "var(--foreground)" }}
+    >
+      {/* ── Reading progress bar (z-9999, fixed top) ── */}
       <ReadingProgressBar />
 
-      {/* Header / Navbar */}
+      {/* ── Navigation ── */}
       <Header isArticle={false} />
 
-      {/* Hero Section */}
-      <section className="relative py-24 border-b border-zinc-200 dark:border-white/5 animate-fade-in-up">
+      {/* ════════════════════════════════════════════════
+          HERO SECTION
+      ════════════════════════════════════════════════ */}
+      <section
+        className="relative py-20 animate-fade-in-up"
+        style={{ borderBottom: "1px solid var(--border-color)" }}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Label badge */}
+          <div
+            className="inline-flex items-center gap-2 mb-6 font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full"
+            style={{
+              border: "1px solid var(--border-color)",
+              background: "rgba(99,102,241,0.04)",
+              color: "var(--foreground-muted)",
+            }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full bg-indigo-500"
+              style={{ animation: "neon-ping 1.5s cubic-bezier(0,0,0.2,1) infinite", opacity: 0.8 }}
+            />
+            SECURE DEEP SCIENCE ARCHIVE // CLASSIFIED
+          </div>
+
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded border border-zinc-200 dark:border-white/10 bg-zinc-100/50 dark:bg-white/5 px-2.5 py-0.5 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-6">
-              SECURE DEEP SCIENCE ARCHIVE // CLASSIFIED
-            </div>
-            <h1 className="text-5xl font-black tracking-tighter text-slate-900 dark:text-white sm:text-7xl uppercase font-sans">
-              EVENT HORIZON
+            <h1
+              className="font-black uppercase leading-[0.95] animate-fade-in-up-delay-1"
+              style={{
+                fontSize: "clamp(3rem, 8vw, 6rem)",
+                letterSpacing: "-0.05em",
+                color: "var(--foreground)",
+              }}
+            >
+              EVENT<br />HORIZON
             </h1>
-            <p className="mt-6 text-base leading-relaxed text-slate-600 dark:text-zinc-400 font-sans max-w-2xl">
-              Evrenin fiziksel sınırlarını, astrofiziksel kuramları, kozmolojik modelleri ve ekstrem doğa koşullarının biyofiziksel sınırlarını araştıran bağımsız teknik analiz arşivi.
+
+            <p
+              className="mt-6 text-base leading-relaxed max-w-2xl animate-fade-in-up-delay-2"
+              style={{ color: "var(--foreground-muted)" }}
+            >
+              Evrenin fiziksel sınırlarını, astrofiziksel kuramları, kozmolojik modelleri
+              ve ekstrem doğa koşullarının biyofiziksel sınırlarını araştıran bağımsız
+              teknik analiz arşivi.
             </p>
           </div>
         </div>
       </section>
 
-      <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 animate-fade-in-up">
-        {/* AdSense Top Placeholder */}
-        <section className="mb-16 border border-dashed border-zinc-200 dark:border-zinc-800 bg-transparent py-8 px-4 text-center font-mono rounded-lg">
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-600 uppercase mb-2">// SPONSOR PLACEMENT //</span>
-            <div className="h-16 w-full max-w-2xl rounded border border-dashed border-zinc-200 dark:border-zinc-800/80 flex items-center justify-center text-[10px] tracking-widest text-zinc-400 dark:text-zinc-500 bg-zinc-50/50 dark:bg-zinc-950/20">
-              ADVERTISING PARTNER DISPLAY AREA (728x90)
-            </div>
+      {/* ════════════════════════════════════════════════
+          MAIN CONTENT
+      ════════════════════════════════════════════════ */}
+      <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+
+        {/* ── AdSense Top ── */}
+        <section
+          className="mb-16 py-6 px-4 text-center font-mono rounded-xl animate-fade-in-up"
+          style={{
+            border: "1px dashed var(--border-color)",
+            background: "transparent",
+          }}
+        >
+          <span
+            className="block text-[9px] tracking-widest uppercase mb-2"
+            style={{ color: "var(--foreground-muted)", opacity: 0.5 }}
+          >
+            // SPONSOR PLACEMENT //
+          </span>
+          <div
+            className="mx-auto flex items-center justify-center rounded-lg"
+            style={{
+              height: "64px",
+              maxWidth: "728px",
+              border: "1px dashed var(--border-color)",
+              background: "rgba(0,0,0,0.01)",
+            }}
+          >
+            <span
+              className="text-[9px] tracking-widest uppercase"
+              style={{ color: "var(--foreground-muted)", opacity: 0.35 }}
+            >
+              ADVERTISING PARTNER DISPLAY AREA (728×90)
+            </span>
           </div>
         </section>
 
-        {/* Asymmetric Grid */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 mb-16">
-          {/* Left Column: Featured Post */}
-          <div className="lg:col-span-7">
-            <div className="font-mono text-xs text-zinc-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-ping" />
+        {/* ════════════════════════════════════════════════
+            ASYMMETRIC GRID: 8 / 4 columns
+            Left → devasa featured post
+            Right → vertical typography index
+        ════════════════════════════════════════════════ */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 mb-20 animate-fade-in-up-delay-1">
+
+          {/* ── LEFT: Featured Hero ── */}
+          <div className="lg:col-span-8">
+            {/* Section label */}
+            <div
+              className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest mb-6"
+              style={{ color: "var(--foreground-muted)" }}
+            >
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-indigo-500"
+                style={{ animation: "neon-ping 1.5s cubic-bezier(0,0,0.2,1) infinite" }}
+              />
               ÖNE ÇIKAN DOKÜMAN
             </div>
-            <BlogCard post={featuredPost} minimal={false} />
+
+            <FeaturedCard post={featuredPost} />
           </div>
 
-          {/* Right Column: Minimalist Dikey Sıralı Makaleler */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
-            <div>
-              <div className="font-mono text-xs text-zinc-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-zinc-400" />
-                DİĞER ANALİZLER & RAPORLAR
-              </div>
-              <div className="border border-zinc-200 dark:border-white/5 bg-zinc-50/20 dark:bg-zinc-950/20 rounded-lg p-6 divide-y divide-zinc-200 dark:divide-white/5">
-                {remainingPosts.map((post) => (
-                  <BlogCard key={post.id} post={post} minimal={true} />
-                ))}
-              </div>
+          {/* ── RIGHT: Vertical Technical Index ── */}
+          <div className="lg:col-span-4 flex flex-col">
+            {/* Section label */}
+            <div
+              className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest mb-6"
+              style={{ color: "var(--foreground-muted)" }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-zinc-400 inline-block" />
+              TEKNİK İNDEKS &amp; ANALİZLER
             </div>
 
-            {/* AdSense In-Grid Box */}
-            <div className="mt-8 border border-dashed border-zinc-200 dark:border-zinc-800 bg-transparent p-6 rounded-lg text-center font-mono">
-              <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-600 uppercase block mb-2">// SPONSOR IN-GRID //</span>
-              <div className="h-28 w-full bg-zinc-50/50 dark:bg-zinc-950/20 border border-dashed border-zinc-200 dark:border-zinc-800/80 rounded flex items-center justify-center text-[10px] tracking-widest text-zinc-400 dark:text-zinc-500">
-                MEDIUM RECTANGLE (300x250)
+            {/* Index card container */}
+            <div
+              className="flex-1 rounded-xl p-5"
+              style={{
+                border: "1px solid var(--border-color)",
+                background: "var(--panel-bg)",
+              }}
+            >
+              {indexPosts.map((post) => (
+                <MinimalCard key={post.id} post={post} />
+              ))}
+            </div>
+
+            {/* AdSense In-Grid */}
+            <div
+              className="mt-5 py-5 px-4 rounded-xl text-center font-mono"
+              style={{
+                border: "1px dashed var(--border-color)",
+                background: "transparent",
+              }}
+            >
+              <span
+                className="block text-[9px] tracking-widest uppercase mb-2"
+                style={{ color: "var(--foreground-muted)", opacity: 0.4 }}
+              >
+                // SPONSOR IN-GRID //
+              </span>
+              <div
+                className="flex items-center justify-center rounded-lg"
+                style={{
+                  height: "112px",
+                  border: "1px dashed var(--border-color)",
+                  background: "rgba(0,0,0,0.01)",
+                }}
+              >
+                <span
+                  className="text-[9px] tracking-widest uppercase"
+                  style={{ color: "var(--foreground-muted)", opacity: 0.3 }}
+                >
+                  MEDIUM RECTANGLE (300×250)
+                </span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Science Simulator Section */}
-        <section className="mb-16">
-          <div className="font-mono text-xs text-zinc-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+        {/* ════════════════════════════════════════════════
+            SCIENCE SIMULATOR SECTION
+        ════════════════════════════════════════════════ */}
+        <section className="mb-20 animate-fade-in-up-delay-2">
+          <div
+            className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest mb-6"
+            style={{ color: "var(--foreground-muted)" }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 inline-block" style={{ boxShadow: "0 0 6px rgba(99,102,241,0.8)" }} />
             BİLİMSEL ANALİZ MODÜLÜ // RESEARCH APEX
           </div>
           <SimulatorWidget />
         </section>
 
-        {/* AdSense Bottom Placeholder */}
-        <section className="border border-dashed border-zinc-200 dark:border-zinc-800 bg-transparent py-8 px-4 text-center font-mono rounded-lg">
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-600 uppercase mb-2">// SPONSOR BOTTOM DISPLAY //</span>
-            <div className="h-20 w-full max-w-4xl rounded border border-dashed border-zinc-200 dark:border-zinc-800/80 flex items-center justify-center text-[10px] tracking-widest text-zinc-400 dark:text-zinc-500 bg-zinc-50/50 dark:bg-zinc-950/20">
-              LEADERBOARD PLACEHOLDER (970x90 / 728x90)
-            </div>
+        {/* ── AdSense Bottom ── */}
+        <section
+          className="py-6 px-4 text-center font-mono rounded-xl animate-fade-in-up-delay-3"
+          style={{
+            border: "1px dashed var(--border-color)",
+            background: "transparent",
+          }}
+        >
+          <span
+            className="block text-[9px] tracking-widest uppercase mb-2"
+            style={{ color: "var(--foreground-muted)", opacity: 0.5 }}
+          >
+            // SPONSOR BOTTOM DISPLAY //
+          </span>
+          <div
+            className="mx-auto flex items-center justify-center rounded-lg"
+            style={{
+              height: "80px",
+              maxWidth: "970px",
+              border: "1px dashed var(--border-color)",
+              background: "rgba(0,0,0,0.01)",
+            }}
+          >
+            <span
+              className="text-[9px] tracking-widest uppercase"
+              style={{ color: "var(--foreground-muted)", opacity: 0.35 }}
+            >
+              LEADERBOARD PLACEHOLDER (970×90 / 728×90)
+            </span>
           </div>
         </section>
       </main>
 
-      {/* Footer Component */}
+      {/* ── Footer ── */}
       <Footer />
 
-      {/* Cookie Consent Banner */}
+      {/* ── Cookie Banner ── */}
       <CookieConsent />
     </div>
   );

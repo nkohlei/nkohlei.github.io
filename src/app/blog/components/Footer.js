@@ -12,27 +12,72 @@ export default function Footer() {
     setIsModalOpen(true);
   };
 
+  const links = [
+    { id: "privacy-link", label: "Gizlilik Politikası", type: "privacy" },
+    { id: "terms-link", label: "Kullanım Şartları", type: "terms" },
+    { id: "contact-link", label: "İletişim & Künye", type: "contact" },
+  ];
+
   return (
     <>
-      <footer className="border-t border-zinc-200 dark:border-white/5 bg-zinc-100/50 dark:bg-[#0a0b0d] py-12 font-mono">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8 text-xs text-zinc-500">
-          <p className="tracking-widest text-zinc-600 dark:text-zinc-400 mb-4 uppercase">
-            OXYPACE APEX ARCHIVES // EVENT HORIZON
-          </p>
-          <div className="flex justify-center gap-6 mb-6">
-            <button onClick={() => openModal("privacy")} className="hover:text-foreground transition-colors">
-              [ Gizlilik Politikası ]
-            </button>
-            <button onClick={() => openModal("terms")} className="hover:text-foreground transition-colors">
-              [ Kullanım Şartları ]
-            </button>
-            <button onClick={() => openModal("contact")} className="hover:text-foreground transition-colors">
-              [ İletişim / Künye ]
-            </button>
+      <footer
+        style={{
+          borderTop: "1px solid var(--border-color)",
+          background: "var(--panel-bg)",
+          backdropFilter: "blur(8px)",
+          padding: "48px 0 32px",
+          fontFamily: "var(--font-geist-mono), monospace",
+        }}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* ── Top row ── */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-8" style={{ borderBottom: "1px solid var(--border-color)" }}>
+            {/* Brand */}
+            <div>
+              <p
+                className="text-lg font-black tracking-tighter mb-1"
+                style={{ color: "var(--foreground)", letterSpacing: "-0.04em" }}
+              >
+                EVENT HORIZON
+              </p>
+              <p
+                className="text-[10px] uppercase tracking-widest"
+                style={{ color: "var(--foreground-muted)" }}
+              >
+                OXYPACE APEX ARCHIVES // SCIENCE PORTAL
+              </p>
+            </div>
+
+            {/* Nav links */}
+            <nav className="flex items-center gap-6 text-[11px] uppercase tracking-widest" style={{ color: "var(--foreground-muted)" }}>
+              {links.map((link) => (
+                <button
+                  key={link.id}
+                  id={link.id}
+                  onClick={() => openModal(link.type)}
+                  className="link-underline transition-colors duration-300 hover:text-[color:var(--foreground)] focus:outline-none"
+                  style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", letterSpacing: "inherit", textTransform: "inherit" }}
+                >
+                  {link.label}
+                </button>
+              ))}
+            </nav>
           </div>
-          <p>
-            © {new Date().getFullYear()} EVENT HORIZON. Halka açık popüler bilim ve ekstrem doğa arşivi. All rights reserved.
-          </p>
+
+          {/* ── Bottom row ── */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 text-[10px]" style={{ color: "var(--foreground-muted)" }}>
+            <p className="uppercase tracking-widest">
+              © {new Date().getFullYear()} EVENT HORIZON. Bağımsız bilimsel popüler arşiv.
+            </p>
+            <div className="flex items-center gap-2">
+              {/* Live indicator */}
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-emerald-400 inline-block"
+                style={{ boxShadow: "0 0 6px rgba(52,211,153,0.6)", animation: "glow-pulse 2s ease-in-out infinite" }}
+              />
+              <span className="uppercase tracking-widest">All Systems Operational</span>
+            </div>
+          </div>
         </div>
       </footer>
 

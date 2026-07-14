@@ -1,80 +1,111 @@
 @import "tailwindcss";
 
+/* ============================================================
+   EVENT HORIZON — PREMIUM DESIGN SYSTEM
+   Awwwards/Stripe-level CSS foundations
+   ============================================================ */
+
+/* ── LIGHT MODE VARIABLES ── */
 :root {
-  --background: #fbfbfd;
-  --foreground: #111215;
-  --accent: #2563eb;
-  --border-color: rgba(0, 0, 0, 0.05);
-  --grid-color: rgba(0, 0, 0, 0.02);
-  --panel-bg: rgba(0, 0, 0, 0.015);
+  --background: #FAF9F6;
+  --foreground: #0D0E12;
+  --foreground-muted: #6B7280;
+  --accent: #6366f1;
+  --accent-secondary: #06b6d4;
+  --border-color: rgba(0, 0, 0, 0.07);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --grid-color: rgba(0, 0, 0, 0.025);
+  --panel-bg: rgba(255, 255, 255, 0.7);
+  --panel-bg-hover: rgba(255, 255, 255, 0.95);
+  --card-bg: #ffffff;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 20px 50px rgba(0,0,0,0.07), 0 8px 20px rgba(0,0,0,0.04);
+  --nav-bg: rgba(250, 249, 246, 0.82);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.12);
+  --scrollbar-thumb-hover: #6366f1;
 }
 
+/* ── DARK MODE VARIABLES ── */
 .dark {
-  --background: #0d0e12;
-  --foreground: #f3f4f6;
-  --accent: #3b82f6;
-  --border-color: rgba(255, 255, 255, 0.05);
-  --grid-color: rgba(255, 255, 255, 0.01);
-  --panel-bg: rgba(255, 255, 255, 0.02);
+  --background: #090A0F;
+  --foreground: #F5F5F7;
+  --foreground-muted: #71717A;
+  --accent: #818cf8;
+  --accent-secondary: #22d3ee;
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.16);
+  --grid-color: rgba(255, 255, 255, 0.015);
+  --panel-bg: rgba(15, 16, 24, 0.8);
+  --panel-bg-hover: rgba(18, 19, 28, 0.95);
+  --card-bg: #12131C;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
+  --card-shadow-hover: 0 20px 50px rgba(0,0,0,0.5), 0 8px 20px rgba(99,102,241,0.08);
+  --nav-bg: rgba(9, 10, 15, 0.82);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+  --scrollbar-thumb-hover: #818cf8;
 }
 
+/* ── TAILWIND THEME TOKENS ── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
 }
 
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--background);
-  background-image: 
+  background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: 48px 48px;
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Custom premium scrollbar */
+/* ============================================================
+   PREMIUM SCROLLBAR
+   ============================================================ */
+
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 3px;
+  background: var(--scrollbar-thumb);
+  border-radius: 2px;
+  transition: background 0.3s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--scrollbar-thumb-hover);
 }
 
-/* Glassmorphism custom classes */
-.glass-panel {
-  background: var(--panel-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--border-color);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
 
-.glass-panel-hover:hover {
-  border-color: var(--accent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  transform: translateY(-4px);
-}
-
-.dark .glass-panel-hover:hover {
-  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.05);
-}
-
-/* Page load animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -82,11 +113,277 @@ body {
   }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-/* Progress bar gradient */
+@keyframes slideInBottom {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 0 40px rgba(99, 102, 241, 0.2);
+  }
+}
+
+@keyframes neon-ping {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  75%, 100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+@keyframes death-zone-flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ============================================================
+   ANIMATION UTILITY CLASSES
+   ============================================================ */
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.animate-fade-in-up-delay-3 {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.animate-slide-in-bottom {
+  animation: slideInBottom 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-death-zone {
+  animation: death-zone-flash 0.8s ease-in-out infinite;
+}
+
+/* ============================================================
+   PREMIUM TRANSITION UTILITY
+   ============================================================ */
+
+.transition-premium {
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.transition-theme {
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   GLASSMORPHISM PANELS
+   ============================================================ */
+
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: var(--panel-bg-hover);
+  border-color: var(--border-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-3px);
+}
+
+/* ============================================================
+   PROGRESS BAR GRADIENT
+   ============================================================ */
+
 .progress-bar-gradient {
-  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  background: linear-gradient(90deg, #7c3aed 0%, #6366f1 35%, #06b6d4 100%);
+}
+
+/* ============================================================
+   PREMIUM INPUT STYLES
+   ============================================================ */
+
+.cockpit-input-wrapper {
+  position: relative;
+  background: rgba(15, 16, 24, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 8px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cockpit-input-wrapper:focus-within {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.15), 0 0 20px rgba(99, 102, 241, 0.12);
+}
+
+/* ── CUSTOM SLIDER — ALTITUDE ── */
+.slider-altitude {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #6366f1, #06b6d4);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+.slider-altitude::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6366f1;
+  border: 2px solid rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15), 0 0 12px rgba(99, 102, 241, 0.4);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.slider-altitude::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.2), 0 0 20px rgba(99, 102, 241, 0.6);
+  transform: scale(1.15);
+}
+.slider-altitude::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #6366f1;
+  border: 2px solid rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+  cursor: pointer;
+}
+
+/* ── CUSTOM SLIDER — TIME DILATION (NEON BLUE) ── */
+.slider-dilation {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #a855f7, #3b82f6, #06b6d4);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+.slider-dilation::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0ea5e9;
+  border: 3px solid rgba(14, 165, 233, 0.5);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15),
+              0 0 16px rgba(14, 165, 233, 0.6),
+              0 0 32px rgba(14, 165, 233, 0.3);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+.slider-dilation::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(14, 165, 233, 0.2),
+              0 0 24px rgba(14, 165, 233, 0.8),
+              0 0 48px rgba(14, 165, 233, 0.4);
+  transform: scale(1.2);
+}
+.slider-dilation::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0ea5e9;
+  border: 3px solid rgba(14, 165, 233, 0.5);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.15), 0 0 16px rgba(14, 165, 233, 0.6);
+  cursor: pointer;
+}
+
+/* ============================================================
+   CATEGORY BADGE
+   ============================================================ */
+
+.badge-category {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #818cf8;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.dark .badge-category {
+  border-color: rgba(129, 140, 248, 0.25);
+  color: #a5b4fc;
+}
+
+.badge-category:hover {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* ============================================================
+   UNDERLINE HOVER ANIMATION (for footer links)
+   ============================================================ */
+
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover::after {
+  width: 100%;
 }
