@@ -3,18 +3,25 @@
 import { useState } from "react";
 
 export default function SimulatorWidget() {
-  // Altitude states
+  // Altitude state (0 to 12000 meters)
   const [altitude, setAltitude] = useState(8848);
-  // Time dilation states
-  const [distance, setDistance] = useState(15); // Distance to black hole center in km
+  // Time dilation state (Distance in km)
+  const [distance, setDistance] = useState(15);
   const rs = 10; // Schwarzschild radius in km
 
-  // O2 calculation: O2% = 20.9 * e^(-h / 8200)
+  // O2 calculation
   const o2Percentage = (20.9 * Math.exp(-altitude / 8200)).toFixed(2);
   const isDeathZone = altitude >= 8000;
 
-  // Time dilation calculation: t_earth = t_orbit / sqrt(1 - rs / r)
-  // Let's compute the factor: 1 / sqrt(1 - rs / r)
+  // Oxygen bar color logic
+  let o2ColorClass = "bg-emerald-500 shadow-[0_0_12px_#10b981]";
+  if (altitude >= 8000) {
+    o2ColorClass = "bg-red-500 shadow-[0_0_12px_#ef4444] animate-pulse";
+  } else if (altitude >= 4000) {
+    o2ColorClass = "bg-amber-500 shadow-[0_0_12px_#f59e0b]";
+  }
+
+  // Time dilation calculation: t_earth = t_orbit / sqrt(1 - rs/r)
   let dilationFactor = 1;
   if (distance > rs) {
     dilationFactor = 1 / Math.sqrt(1 - rs / distance);
@@ -23,94 +30,126 @@ export default function SimulatorWidget() {
   }
 
   const formatDilation = (factor) => {
-    if (factor === Infinity) return "Sonsuz Zaman Yavaşlaması (Olay Ufku)";
-    if (factor > 3600) return `${(factor / 3600).toFixed(2)} saat`;
-    if (factor > 60) return `${(factor / 60).toFixed(2)} dakika`;
-    return `${factor.toFixed(2)} saniye`;
+    if (factor === Infinity) return "CRITICAL: EVENT HORIZON REACHED";
+    if (factor > 3600) return `${(factor / 3600).toFixed(1)} SAAT`;
+    if (factor > 60) return `${(factor / 60).toFixed(1)} DAKİKA`;
+    return `${factor.toFixed(1)} SANİYE`;
   };
 
   return (
-    <div className="glass-panel rounded-lg p-6 font-mono text-xs border border-white/5 bg-zinc-950/20 text-foreground w-full">
-      <div className="border-b border-white/5 pb-3 mb-6">
-        <h3 className="text-sm font-extrabold text-foreground uppercase tracking-widest flex items-center gap-2">
+    <div className="glass-panel rounded-lg p-6 md:p-8 font-mono text-xs border border-zinc-200 dark:border-white/5 bg-zinc-50/20 dark:bg-zinc-950/40 text-foreground w-full">
+      <div className="border-b border-zinc-200 dark:border-white/5 pb-4 mb-6">
+        <h3 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-widest flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-          KOZMİK SİMÜLATÖR // COSMIC SIMULATOR
+          APEX FLIGHT COMPUTER // SIMULATOR WIDGET
         </h3>
-        <p className="text-[10px] text-zinc-500 uppercase mt-1">İnteraktif Fizik ve İrtifa Modelleme Modülü</p>
+        <p className="text-[10px] text-zinc-500 uppercase mt-1">İnteraktif Yerçekimi ve Atmosferik Modelleme Terminali</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Module 1: Altitude O2 Simulator */}
-        <div className="space-y-4">
-          <h4 className="font-bold text-foreground border-b border-white/5 pb-2 text-[11px] uppercase tracking-wider">
-            [ 01 // İRTİFA OKSİJEN SİMÜLASYONU ]
+        {/* Module 01: Altitude HUD */}
+        <div className="border border-zinc-200 dark:border-white/5 bg-zinc-100/50 dark:bg-zinc-900/10 p-5 rounded-lg">
+          <h4 className="font-extrabold text-slate-800 dark:text-zinc-200 border-b border-zinc-200 dark:border-white/5 pb-3 text-[11px] uppercase tracking-wider mb-4">
+            [ SECTION 01: ATMOSPHERIC HYPOXIA CONTROLLER ]
           </h4>
-          <div>
-            <label className="block text-zinc-400 mb-2">İrtifa Yüksekliği (Metre):</label>
-            <input
-              type="number"
-              min="0"
-              max="15000"
-              value={altitude}
-              onChange={(e) => setAltitude(Math.max(0, parseInt(e.target.value) || 0))}
-              className="w-full bg-zinc-900/50 border border-white/10 rounded px-3 py-2 text-foreground font-bold focus:outline-none focus:border-accent"
-            />
-          </div>
-          <div className="bg-background/40 p-4 rounded border border-white/5 space-y-2">
-            <div className="flex justify-between">
-              <span className="text-zinc-500">Atmosferik O2 Oranı:</span>
-              <span className="font-bold text-foreground font-sans">{o2Percentage}%</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-zinc-500">Deniz Seviyesi Oranı:</span>
-              <span className="font-bold text-zinc-400">20.90%</span>
-            </div>
-            {isDeathZone ? (
-              <div className="mt-3 text-center py-1.5 rounded bg-red-950/20 border border-red-500/30 text-red-400 font-bold text-[10px] animate-pulse">
-                !!! UYARI: ÖLÜM BÖLGESİ (DEATH ZONE) !!!
+          
+          <div className="space-y-6">
+            <div>
+              <div className="flex justify-between mb-2">
+                <span className="text-zinc-500">ALTITUDE ALT (YÜKSEKLİK):</span>
+                <span className="text-blue-500 font-bold font-sans text-sm">{altitude} m</span>
               </div>
-            ) : (
-              <div className="mt-3 text-center py-1.5 rounded bg-emerald-950/20 border border-emerald-500/20 text-emerald-400 font-bold text-[10px]">
-                GÜVENLİ LİMİTLER
+              <input
+                type="range"
+                min="0"
+                max="12000"
+                step="50"
+                value={altitude}
+                onChange={(e) => setAltitude(parseInt(e.target.value))}
+                className="w-full h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+              <div className="flex justify-between text-[9px] text-zinc-400 mt-1">
+                <span>0 m (Sea Level)</span>
+                <span>12000 m (Death Zone Apex)</span>
               </div>
-            )}
+            </div>
+
+            <div className="bg-zinc-100/80 dark:bg-zinc-950/60 p-4 rounded border border-zinc-200 dark:border-white/5 space-y-4">
+              <div>
+                <div className="flex justify-between items-baseline mb-1">
+                  <span className="text-zinc-500">EFFECTIVE O₂ LEVEL:</span>
+                  <span className="text-xl font-black font-sans tracking-tight text-slate-900 dark:text-white">
+                    {o2Percentage}%
+                  </span>
+                </div>
+                {/* Dynamic progress bar */}
+                <div className="w-full h-2 bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-300 ${o2ColorClass}`}
+                    style={{ width: `${(parseFloat(o2Percentage) / 20.9) * 100}%` }}
+                  />
+                </div>
+              </div>
+
+              {isDeathZone ? (
+                <div className="text-center py-2 rounded bg-red-500/10 border border-red-500/30 text-red-500 dark:text-red-400 font-black text-[10px] animate-pulse">
+                  CRITICAL DANGER: EXCEEDED HUMAN ACCLIMATIZATION LIMIT (DEATH ZONE)
+                </div>
+              ) : (
+                <div className="text-center py-2 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">
+                  STATUS: LIFE SUPPORT STABLE
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Module 2: Einstein Gravitational Time Dilation */}
-        <div className="space-y-4">
-          <h4 className="font-bold text-foreground border-b border-white/5 pb-2 text-[11px] uppercase tracking-wider">
-            [ 02 // EINSTEIN ZAMAN DİLATASYONU ]
+        {/* Module 02: Relativistic Time HUD */}
+        <div className="border border-zinc-200 dark:border-white/5 bg-zinc-100/50 dark:bg-zinc-900/10 p-5 rounded-lg">
+          <h4 className="font-extrabold text-slate-800 dark:text-zinc-200 border-b border-zinc-200 dark:border-white/5 pb-3 text-[11px] uppercase tracking-wider mb-4">
+            [ SECTION 02: SCHWARZSCHILD TIME DILATOR ]
           </h4>
-          <div>
-            <label className="block text-zinc-400 mb-2">
-              Kara Delik Merkezine Uzaklık (km): <span className="text-accent font-bold font-sans">{distance} km</span>
-            </label>
-            <input
-              type="range"
-              min="11"
-              max="100"
-              value={distance}
-              onChange={(e) => setDistance(parseInt(e.target.value))}
-              className="w-full h-1 bg-zinc-900 rounded-lg appearance-none cursor-pointer accent-blue-500"
-            />
-            <div className="flex justify-between text-[9px] text-zinc-600 mt-1">
-              <span>11 km (Sınıra Yakın)</span>
-              <span>100 km (Uzak)</span>
+
+          <div className="space-y-6">
+            <div>
+              <div className="flex justify-between mb-2">
+                <span className="text-zinc-500">RADIAL DISTANCE (KM):</span>
+                <span className="text-purple-500 font-bold font-sans text-sm">{distance} km</span>
+              </div>
+              <input
+                type="range"
+                min="11"
+                max="100"
+                value={distance}
+                onChange={(e) => setDistance(parseInt(e.target.value))}
+                className="w-full h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-500"
+              />
+              <div className="flex justify-between text-[9px] text-zinc-400 mt-1">
+                <span className="text-red-500 font-bold">11 km (Event Horizon)</span>
+                <span>100 km (Flat Space)</span>
+              </div>
             </div>
-          </div>
-          <div className="bg-background/40 p-4 rounded border border-white/5 space-y-2">
-            <div className="text-[10px] text-zinc-500 mb-2">
-              Schwarzschild Olay Ufku yarıçapı 10 km olan bir kara deliğin yörüngesinde:
-            </div>
-            <div className="flex justify-between border-t border-white/5 pt-2">
-              <span className="text-zinc-500">Kara Delikte 1 Saniye:</span>
-              <span className="font-bold text-accent font-sans">
-                {formatDilation(dilationFactor)}
-              </span>
-            </div>
-            <div className="text-[9px] text-zinc-500 italic mt-2">
-              * Kara deliğe yaklaştıkça Dünya'daki gözlemci için zamanınız yavaşlar.
+
+            <div className="bg-zinc-100/80 dark:bg-zinc-950/60 p-4 rounded border border-zinc-200 dark:border-white/5 space-y-4">
+              <div>
+                <div className="flex justify-between items-baseline mb-1">
+                  <span className="text-zinc-500">1 SEC ON SHUTTLE =</span>
+                </div>
+                <div className="text-xl font-black font-sans tracking-tight text-slate-900 dark:text-white truncate">
+                  {formatDilation(dilationFactor)}
+                </div>
+                <span className="text-[9px] text-zinc-500">ON EARTH (DÜNYA ZAMANI)</span>
+              </div>
+
+              {distance <= 12 ? (
+                <div className="text-center py-2 rounded bg-purple-500/10 border border-purple-500/30 text-purple-600 dark:text-purple-400 font-black text-[10px] animate-pulse">
+                  GRAVITATIONAL FORCE EXTREME // TIME SLOWING DOWN EXPONENTIALLY
+                </div>
+              ) : (
+                <div className="text-center py-2 rounded bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-white/5 text-zinc-500 font-bold text-[10px]">
+                  SYSTEM STATUS: RELATIVISTIC ORBIT STEADY
+                </div>
+              )}
             </div>
           </div>
         </div>

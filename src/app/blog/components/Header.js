@@ -36,7 +36,7 @@ export default function Header({ isArticle = false }) {
             {isArticle ? (
               <Link
                 href="/blog"
-                className="text-zinc-500 hover:text-foreground transition-colors font-semibold"
+                className="text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors font-semibold"
               >
                 [ GERİ DÖN ]
               </Link>
@@ -44,13 +44,13 @@ export default function Header({ isArticle = false }) {
               <>
                 <Link
                   href="/blog"
-                  className="text-foreground hover:text-accent transition-colors font-semibold"
+                  className="text-slate-900 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-semibold"
                 >
                   [ ARCHIVES ]
                 </Link>
                 <a
                   href="#"
-                  className="text-zinc-500 hover:text-foreground transition-colors"
+                  className="text-slate-500 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   [ INDEX ]
                 </a>

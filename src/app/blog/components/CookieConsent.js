@@ -20,20 +20,22 @@ export default function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 left-6 right-6 z-50 max-w-3xl mx-auto animate-fade-in-up">
-      <div className="glass-panel rounded-xl p-5 md:p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4 border border-zinc-500/10 bg-background/80 backdrop-blur-md">
-        <div className="text-sm text-foreground/80 leading-relaxed text-center md:text-left">
+    <div className="fixed bottom-6 right-6 z-50 max-w-sm w-full mx-auto animate-fade-in-up px-4 sm:px-0">
+      <div className="glass-panel rounded-xl p-5 shadow-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50/90 dark:bg-[#0d0e12]/90 backdrop-blur-md">
+        <div className="text-xs text-slate-800 dark:text-zinc-300 leading-relaxed mb-4">
+          <h5 className="font-bold text-slate-900 dark:text-white uppercase mb-1 font-mono tracking-wider">
+            [ DATA POLICY // ÇEREZ İZNİ ]
+          </h5>
           <p>
-            <span className="font-bold text-foreground">Çerez Bildirimi //</span> Sitemizde gezinme deneyiminizi analiz etmek ve AdSense reklamlarını kişiselleştirmek amacıyla çerezler kullanmaktayız. Devam ederek çerez kullanımını kabul etmiş sayılırsınız.{" "}
-            <a href="#" className="underline text-accent font-semibold hover:text-foreground transition-colors">[ Detaylar ]</a>
+            Ziyaret deneyiminizi analiz etmek ve reklam kişiselleştirmesini optimize etmek adına çerezleri kullanıyoruz. Devam ederek çerez kullanımını onaylamış olursunuz.
           </p>
         </div>
-        <div className="flex gap-3 w-full md:w-auto shrink-0 justify-center">
+        <div className="flex justify-end gap-3 font-mono">
           <button
             onClick={acceptCookies}
-            className="w-full md:w-auto rounded bg-accent px-5 py-2 text-xs font-mono font-bold text-white hover:opacity-90 transition-opacity"
+            className="w-full text-center rounded bg-blue-600 dark:bg-blue-500 hover:opacity-90 transition-opacity px-4 py-2 text-[10px] font-bold text-white uppercase tracking-wider"
           >
-            [ KABUL ET ]
+            [ KABUL ET // ACCEPT ]
           </button>
         </div>
       </div>

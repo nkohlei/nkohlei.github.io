@@ -32,7 +32,7 @@ export default async function BlogPostPage({ params }) {
         <article>
           {/* Category Tag & Meta */}
           <div className="flex items-center gap-4 text-xs font-mono text-zinc-500 mb-6">
-            <span className="border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 px-2.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300">
+            <span className="border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 px-2.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300 font-semibold">
               {post.category}
             </span>
             <span>{post.date}</span>
@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }) {
           </div>
 
           {/* Title */}
-          <h1 className="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white sm:text-5xl mb-8 leading-tight uppercase font-sans">
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl mb-8 leading-tight uppercase font-sans">
             {post.title}
           </h1>
 
@@ -55,10 +55,10 @@ export default async function BlogPostPage({ params }) {
           </div>
 
           {/* AdSense In-Article Box */}
-          <div className="my-10 border border-dashed border-zinc-300 dark:border-zinc-800 bg-zinc-100/20 dark:bg-zinc-950/20 p-4 text-center font-mono">
-            <span className="text-[9px] tracking-widest text-zinc-500 dark:text-zinc-600 uppercase block mb-1">ADSENSE IN-ARTICLE CONTENT UNIT</span>
-            <div className="h-20 w-full rounded bg-zinc-100 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-900 flex items-center justify-center text-xs text-zinc-500">
-              Responsive In-Article Banner Ad Placement
+          <div className="my-10 border border-dashed border-zinc-200 dark:border-zinc-800 bg-transparent p-6 text-center font-mono rounded-lg">
+            <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-600 uppercase block mb-2">// SPONSOR IN-ARTICLE //</span>
+            <div className="h-16 w-full rounded border border-dashed border-zinc-200 dark:border-zinc-800/80 flex items-center justify-center text-[10px] tracking-widest text-zinc-400 dark:text-zinc-500 bg-zinc-50/50 dark:bg-zinc-950/20">
+              NATIVE IN-ARTICLE DISPLAY PLACEMENT
             </div>
           </div>
 
@@ -90,11 +90,11 @@ export default async function BlogPostPage({ params }) {
         </article>
 
         {/* AdSense Bottom Box */}
-        <section className="mt-16 border border-dashed border-zinc-300 dark:border-zinc-800 bg-zinc-100/20 dark:bg-zinc-950/20 py-8 px-4 text-center font-mono">
+        <section className="mt-16 border border-dashed border-zinc-200 dark:border-zinc-800 bg-transparent py-8 px-4 text-center font-mono rounded-lg">
           <div className="flex flex-col items-center justify-center">
-            <span className="text-[9px] tracking-widest text-zinc-500 dark:text-zinc-600 uppercase mb-2">ADSENSE MULTIPLEX RECOMMENDED</span>
-            <div className="h-24 w-full max-w-xl rounded bg-zinc-100 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-900 flex items-center justify-center text-xs text-zinc-500">
-              Matched Content Recommendations
+            <span className="text-[9px] tracking-widest text-zinc-400 dark:text-zinc-600 uppercase mb-2">// RECOMMENDED SPONSOR LINKS //</span>
+            <div className="h-20 w-full max-w-xl rounded border border-dashed border-zinc-200 dark:border-zinc-800/80 flex items-center justify-center text-[10px] tracking-widest text-zinc-400 dark:text-zinc-500 bg-zinc-50/50 dark:bg-zinc-950/20">
+              MATCHED CONTENT RECOMMENDATIONS (AUTO-SIZE)
             </div>
           </div>
         </section>

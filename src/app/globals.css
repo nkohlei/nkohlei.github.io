@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf9f6;
+  --background: #fbfbfd;
   --foreground: #111215;
   --accent: #2563eb;
-  --border-color: rgba(0, 0, 0, 0.06);
-  --grid-color: rgba(0, 0, 0, 0.015);
+  --border-color: rgba(0, 0, 0, 0.05);
+  --grid-color: rgba(0, 0, 0, 0.02);
   --panel-bg: rgba(0, 0, 0, 0.015);
 }
 
@@ -57,21 +57,24 @@ body {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-color);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(255, 255, 255, 0.04);
   border-color: var(--accent);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  transform: translateY(-4px);
+}
+
+.dark .glass-panel-hover:hover {
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.05);
 }
 
 /* Page load animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -80,5 +83,10 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Progress bar gradient */
+.progress-bar-gradient {
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
 }
