@@ -29,7 +29,7 @@ export default async function BlogPostPage({ params }) {
 
       {/* Main Content Area */}
       <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 animate-fade-in-up">
-        <article>
+        <article className="glass-card p-6 sm:p-10 rounded-2xl">
           {/* Category Tag & Meta */}
           <div className="flex items-center gap-4 text-xs font-mono text-zinc-500 mb-6">
             <span className="border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 px-2.5 py-0.5 rounded text-zinc-700 dark:text-zinc-300 font-semibold">
