@@ -81,7 +81,7 @@ function QuoteCard({ quote, lang }) {
     >
       {/* Background Image with Gradient Masking */}
       <div
-        className="quote-bg-image absolute inset-y-0 right-0 w-1/2 md:w-2/5 pointer-events-none opacity-[0.08] dark:opacity-15 grayscale contrast-125 transition-transform duration-700 ease-out group-hover:scale-105"
+        className="quote-bg-image absolute inset-y-0 right-0 w-1/2 md:w-2/5 pointer-events-none opacity-[0.20] dark:opacity-30 grayscale contrast-125 transition-transform duration-700 ease-out group-hover:scale-105"
         style={{
           backgroundImage: `url('/images/quotes/${authorImage}.jpg')`,
           backgroundSize: "cover",
