@@ -1,233 +1,99 @@
 "use client";
 
-/* ──────────────────────────────────────────────────────────────
-   PARTNER LOGOS — Clean, compact, theme-adaptive vectors.
-   All logos use currentColor → monochrome in dark/light themes.
-   Proper full wordmarks. Same-size containers. Close spacing.
-────────────────────────────────────────────────────────────── */
+/* ───────────────────────────────────────────────────────────────────
+   PARTNER LOGOS
+   • CDN logos: https://cdn.simpleicons.org/{slug}/000000
+     → black in light mode, inverted white in dark mode via dark:invert
+   • Oxypace: official website image (coloured)
+   • Space.com: clean wordmark SVG (not on simple-icons)
+─────────────────────────────────────────────────────────────────── */
 
+const CDN = (slug) =>
+  `https://cdn.simpleicons.org/${slug}/000000`;
+
+/** Logos ordered as: Oxypace → NASA → SpaceX → CERN → Space.com →
+    NatGeo → NorthFace → Google → IBM → MIT → PopSci → Canon →
+    GoPro → RedBull → Tesla → NVIDIA → WarnerBros → Anthropic → NBC */
 const PARTNERS = [
   {
     id: "oxypace",
     url: "https://oxypace.com.tr",
     label: "Oxypace",
-    isImg: true,
-    imgSrc: "https://oxypace.com.tr/logo.png",
-    imgTextSrc: "https://oxypace.com.tr/oxypace-text-logo2.webp",
+    type: "img-pair",
+    icon: "https://oxypace.com.tr/logo.png",
+    wordmark: "https://oxypace.com.tr/oxypace-text-logo2.webp",
   },
-  {
-    id: "nasa",
-    url: "https://www.nasa.gov",
-    label: "NASA",
-    svg: (
-      <svg viewBox="0 0 508.204 141.732" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="NASA">
-        <path d="M91.991,104.699c1.576,5.961,4.119,8.266,8.613,8.266c4.659,0,7.102-2.799,7.102-8.266V3.2h29.184v101.499 c0,14.307-1.856,20.506-9.11,27.762c-5.228,5.229-14.871,9.271-27.047,9.271c-9.837,0-19.25-3.256-25.253-9.27 c-5.263-5.273-8.154-10.689-12.672-27.764L44.9,37.033c-1.577-5.961-4.119-8.265-8.613-8.265c-4.66,0-7.103,2.798-7.103,8.265 v101.5H0v-101.5C0,22.727,1.857,16.527,9.111,9.271C14.337,4.044,23.981,0,36.158,0c9.837,0,19.25,3.257,25.253,9.27 c5.263,5.273,8.154,10.689,12.672,27.764L91.991,104.699z"/>
-        <path d="M478.038,138.533L444.334,33.096c-0.372-1.164-0.723-2.152-1.263-2.811c-0.926-1.127-2.207-1.719-3.931-1.719c-1.723,0-3.004,0.592-3.931,1.719c-0.539,0.658-0.891,1.646-1.262,2.811l-33.703,105.437h-30.167l36.815-115.177c1.918-6,4.66-11.094,8.139-14.488C421.002,3.047,428.038,0,439.141,0s18.14,3.047,24.109,8.867c3.479,3.395,6.221,8.488,8.14,14.488l36.814,115.177H478.038z"/>
-        <path d="M328.878,138.533c19.12,0,28.446-4.062,35.814-11.389c8.153-8.105,12.053-16.973,12.053-30.213c0-11.699-4.283-22.535-10.804-29.019c-8.526-8.479-19.116-11.151-36.384-11.151L305.37,56.76c-9.242,0-12.925-1.117-15.839-3.98c-2.001-1.964-2.939-4.885-2.939-8.328c0-3.559,0.857-7.074,3.303-9.475c2.171-2.131,5.13-3.109,10.816-3.109h69.903V3.2H306.05c-19.12,0-28.445,4.063-35.814,11.389c-8.152,8.105-12.053,16.972-12.053,30.212c0,11.701,4.283,22.536,10.804,29.019c8.527,8.479,19.116,11.152,36.384,11.152l24.188,0.002c9.242,0,12.925,1.115,15.839,3.979c2.001,1.965,2.939,4.885,2.939,8.328c0,3.559-0.857,7.074-3.302,9.475c-2.172,2.131-5.131,3.109-10.817,3.109h-72.094l-27.651-86.509c-1.918-6-4.66-11.094-8.139-14.488C220.363,3.047,213.327,0,202.224,0s-18.14,3.047-24.108,8.867c-3.48,3.395-6.221,8.488-8.139,14.488l-36.815,115.177h30.166l33.704-105.437c0.372-1.164,0.723-2.152,1.263-2.811c0.926-1.127,2.208-1.719,3.931-1.719s3.004,0.592,3.931,1.719c0.54,0.658,0.891,1.646,1.262,2.811l33.704,105.437H328.878z"/>
-      </svg>
-    ),
-  },
-  {
-    id: "spacex",
-    url: "https://www.spacex.com",
-    label: "SpaceX",
-    svg: (
-      <svg viewBox="0 0 331.644 40.825" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="SpaceX">
-        <path d="M77.292,15.094H49.249l-1.039,0.777v24.947h7.763v-9.355l0.741-0.664h20.579c5.196,0,7.632-1.398,7.632-4.985v-5.728C84.924,16.493,82.489,15.094,77.292,15.094 M77.292,24.317c0,1.69-1.118,2.041-3.554,2.041H56.799l-0.827-0.804V20.21l0.741-0.678h17.025c2.436,0,3.554,0.347,3.554,2.045V24.317z"/>
-        <polyline points="99.081,19.813 105.761,29.6 105.391,30.548 90.618,30.548 86.847,35.187 108.837,35.187 110.361,36.115 113.775,40.824 122.659,40.824 103.186,14.775"/>
-        <polyline points="187.418,35.757 187.418,28.833 188.217,28.143 203.079,28.143 203.079,23.734 179.524,23.734 179.524,40.823 214.27,40.823 214.27,36.435 188.252,36.435"/>
-        <rect x="179.524" y="15.094" width="35.113" height="4.848"/>
-        <path d="M140.361,19.685h28.288c-0.436-3.597-2.668-4.595-8.33-4.595H140.06c-6.389,0-8.427,1.247-8.427,6.082v13.565c0,4.84,2.038,6.087,8.427,6.087h20.259c5.745,0,7.945-1.079,8.095-4.81h-28.053l-0.832-0.783V20.209"/>
-        <path d="M29.333,25.118H8.754l-0.606-0.667v-4.402l0.603-0.466h27.742l0.379-0.927c-0.945-2.431-3.392-3.565-7.936-3.565H9.665c-6.385,0-8.426,1.247-8.426,6.082v2.844c0,4.841,2.041,6.086,8.426,6.086h20.533l0.645,0.566v4.602l-0.526,0.718H6.83v-0.022H0.678c0,0-0.704,0.353-0.677,0.518c0.525,3.382,2.829,4.34,8.345,4.34h20.987c6.384,0,8.486-1.247,8.486-6.087v-3.543C37.819,26.363,35.717,25.118,29.333,25.118"/>
-        <path d="M236.725,14.988h-11.551l-0.627,1.193l12.828,9.351c2.43-1.407,5.074-2.833,7.95-4.24"/>
-        <path d="M247.075,32.603l11.275,8.222h11.692l0.484-1.089L253.69,27.413C251.454,29.054,249.245,30.787,247.075,32.603"/>
-        <path d="M235.006,40.806h-10.451l-0.883-1.383C230.778,32.562,262.56,3.151,331.644,0C331.644,0,273.658,1.956,235.006,40.806"/>
-      </svg>
-    ),
-  },
-  {
-    id: "cern",
-    url: "https://home.cern",
-    label: "CERN",
-    svg: (
-      <svg viewBox="50 50 500 500" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="CERN">
-        <path d="m531.43 64.59-18.896 195.07h-0.34699c-2.6966-36.831-21.038-80.799-43.711-108.6-39.349-48.261-97.088-77.389-161.95-77.389-61.834 0-116.95 27.432-154.85 70.439l8.6847 6.8803c35.809-40.489 87.104-66.444 146.16-66.444 71.886 0 130.45 36.831 163.2 86.926 29.226 44.692 38.922 101.97 32.141 143.91-2.2802 14.187-7.4157 41.738-26.312 72.957l3.3113 14.534c23.159-35.909 34.917-67.851 44.078-149.54 7.0389-62.656 19.124-188.75 19.124-188.75zm-72.956 348.1c-35.006 42.848-89.365 71.698-151.8 71.668-13.414 0-26.421-1.5069-37.267-3.7078l-8.9524 9.5174c17.141 3.9656 32.32 5.4527 46.854 5.4527 64.223 0 119.18-29.99 154.15-69.438zm-288.54 15.693c-7.0092-1.0311-15.773-3.5195-21.047-5.77 23.615 26.867 56.103 48.37 88.007 60.426l8.3674-8.8829c-34.61-11.689-59.742-30.456-75.327-45.773m420.06-412.98s-275.61-2.1811-363.48-2.1414c-13.771 0.0297-23 0.98149-25.975 1.1798-108.55 7.0191-190.18 102.21-190.54 206-0.10906 30.188 7.9312 64.193 20.968 110.1 17.25 60.644 37.435 130.23 37.435 130.23h11.014l-40.697-137.32 0.30734-0.19828c29.891 57.749 98.813 104.16 177.02 104.16 42.214 0 81.344-11.817 112.19-33.579l0.27759 0.25776-181.06 192.66h14.147s127.13-135.26 170.36-181.18c33.152-35.185 50.363-57.868 57.561-69.626 8.2584-13.503 34.521-52.396 33.529-109.69l0.3569-0.0397 79.342 360.53h11.381s-66.563-295.1-79.471-356.81c-12.72-60.723-27.749-98.396-43.939-119.87-5.5717-3.113-14.256-6.6424-18.351-7.5941 23.516 29.673 41.103 73.83 41.103 118.01 0 108.14-87.997 196.14-196.14 196.14s-196.12-87.997-196.12-196.14c0-108.15 88.294-196.13 196.19-196.13 47.954 0 92.408 17.587 126.56 46.546 6.6126 0.922 15.456 2.9841 20.75 4.8876l0.0297-0.10905c-24.537-24.488-55.201-42.68-89.295-52.247v-0.27759l314.54 1.9432zm-447.57 378.1c-23.972-37.931-30.793-74.533-31.745-102.56h-11.074c0.922 30.565 8.3377 62.627 24.924 94.044 3.9061 3.1526 13.086 7.1678 17.895 8.5161"/>
-      </svg>
-    ),
-  },
+  { id: "nasa",              url: "https://www.nasa.gov",               label: "NASA",               slug: "nasa" },
+  { id: "spacex",            url: "https://www.spacex.com",             label: "SpaceX",             slug: "spacex" },
+  { id: "cern",              url: "https://home.cern",                  label: "CERN",               slug: "cern" },
   {
     id: "spacecom",
     url: "https://www.space.com",
     label: "Space.com",
+    type: "svg",
     svg: (
-      <svg viewBox="0 0 540 120" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="Space.com">
-        <text x="0" y="95" fontFamily="'Arial Black', 'Arial Bold', Gadget, sans-serif" fontWeight="900" fontSize="110" letterSpacing="-3" fill="currentColor">SPACE</text>
-        <text x="362" y="78" fontFamily="'Arial', Helvetica, sans-serif" fontWeight="700" fontSize="46" fill="currentColor">.com</text>
+      <svg viewBox="0 0 220 44" className="h-7 w-auto max-w-full" fill="currentColor" aria-label="Space.com">
+        <text x="0" y="36" fontFamily="'Arial Black','Arial Bold',Gadget,sans-serif" fontWeight="900" fontSize="44" letterSpacing="-2">SPACE</text>
+        <text x="150" y="30" fontFamily="Arial,Helvetica,sans-serif" fontWeight="700" fontSize="18">.com</text>
       </svg>
     ),
   },
-  {
-    id: "natgeo",
-    url: "https://www.nationalgeographic.com",
-    label: "National Geographic",
-    svg: (
-      <svg viewBox="0 0 340 60" className="w-auto h-9 max-h-full max-w-full object-contain" aria-label="National Geographic">
-        <rect x="0" y="4" width="36" height="52" fill="#FFCC00"/>
-        <text x="46" y="28" fontFamily="'Arial', Helvetica, sans-serif" fontWeight="700" fontSize="13.5" letterSpacing="0.5" fill="currentColor">NATIONAL</text>
-        <text x="46" y="48" fontFamily="'Arial', Helvetica, sans-serif" fontWeight="700" fontSize="13.5" letterSpacing="0.5" fill="currentColor">GEOGRAPHIC</text>
-      </svg>
-    ),
-  },
-  {
-    id: "thenorthface",
-    url: "https://www.thenorthface.com",
-    label: "The North Face",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="The North Face">
-        <path d="M21.9 3.5a.6.6 0 0 0-.595.522l-.005.078v3.9l-2.7-4.149a.6.6 0 0 0-1.095.327L17.5 4.2v6.9H16V4.178a.6.6 0 0 0-1.195-.078L14.8 4.2v6.9h-1.3V7.45a.6.6 0 0 0-1.195-.078L12.3 7.45v9.375l-3.15-3.15a.6.6 0 0 0-.9.795l.054.061 3.996 3.996V22.5a.6.6 0 0 0 1.195.078L13.5 22.5V17.4l2.7 2.7a.6.6 0 0 0 .9-.795l-.054-.061L14.8 17.1V11.7h1.3v3.45a.6.6 0 0 0 1.195.078L17.3 15.15V11.7h1.3v2.7a.6.6 0 0 0 1.195.078L19.8 14.4V4.2l2.25 3.45a.6.6 0 0 0 1.044-.495L23.09 7.1 21.9 4.145V4.1a.6.6 0 0 0-.595-.6H21.9zM2.1 3.5a.6.6 0 0 0-.595.522L1.5 4.1v9.105L.354 11.059a.6.6 0 0 0-.9.795l.054.061L2.4 14.807V22.5a.6.6 0 0 0 1.195.078L3.6 22.5v-7.693l2.892-2.892a.6.6 0 0 0-.795-.9l-.061.054L3.6 13.107V4.178a.6.6 0 0 0-.495-.672L3.027 3.5H2.1z" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    id: "google",
-    url: "https://www.google.com",
-    label: "Google",
-    svg: (
-      <svg viewBox="0 0 272 92" className="w-auto h-9 max-h-full max-w-full object-contain" aria-label="Google">
-        <path d="M115.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18C71.25 34.32 81.24 25 93.5 25s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44S80.99 39.2 80.99 47.18c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#EA4335"/>
-        <path d="M163.75 47.18c0 12.77-9.99 22.18-22.25 22.18s-22.25-9.41-22.25-22.18c0-12.85 9.99-22.18 22.25-22.18s22.25 9.32 22.25 22.18zm-9.74 0c0-7.98-5.79-13.44-12.51-13.44s-12.51 5.46-12.51 13.44c0 7.9 5.79 13.44 12.51 13.44s12.51-5.55 12.51-13.44z" fill="#FBBC05"/>
-        <path d="M209.75 26.34v39.82c0 16.38-9.66 23.07-21.08 23.07-10.75 0-17.22-7.19-19.66-13.07l8.48-3.53c1.51 3.61 5.21 7.87 11.17 7.87 7.31 0 11.84-4.51 11.84-13v-3.19h-.34c-2.18 2.69-6.38 5.04-11.68 5.04-11.09 0-21.25-9.66-21.25-22.09 0-12.52 10.16-22.26 21.25-22.26 5.29 0 9.49 2.35 11.68 4.96h.34v-3.61h9.25zm-8.56 20.92c0-7.81-5.21-13.52-11.84-13.52-6.72 0-12.35 5.71-12.35 13.52 0 7.73 5.63 13.36 12.35 13.36 6.63 0 11.84-5.63 11.84-13.36z" fill="#4285F4"/>
-        <path d="M225 3v65h-9.5V3h9.5z" fill="#34A853"/>
-        <path d="M262.02 54.48l7.56 5.04c-2.44 3.61-8.32 9.83-18.48 9.83-12.6 0-22.01-9.74-22.01-22.18 0-13.19 9.49-22.18 20.92-22.18 11.51 0 17.14 9.16 18.98 14.11l1.01 2.52-29.65 12.28c2.27 4.45 5.8 6.72 10.75 6.72 4.96 0 8.4-2.44 10.92-6.14zm-23.27-7.98l19.82-8.23c-1.09-2.77-4.37-4.7-8.23-4.7-4.95 0-11.84 4.37-11.59 12.93z" fill="#EA4335"/>
-        <path d="M35.29 41.41V32H67c.31 1.64.47 3.58.47 5.68 0 7.06-1.93 15.79-8.15 22.01-6.05 6.3-13.78 9.66-24.02 9.66C16.32 69.35.36 53.89.36 34.91.36 15.93 16.32.47 35.3.47c10.5 0 17.98 4.12 23.6 9.49l-6.64 6.64c-4.03-3.78-9.49-6.72-16.97-6.72-13.86 0-24.7 11.17-24.7 25.03 0 13.86 10.84 25.03 24.7 25.03 8.99 0 14.11-3.61 17.39-6.89 2.66-2.66 4.41-6.46 5.1-11.65l-22.49.01z" fill="#4285F4"/>
-      </svg>
-    ),
-  },
-  {
-    id: "ibm",
-    url: "https://www.ibm.com",
-    label: "IBM",
-    svg: (
-      <svg viewBox="0 0 24 9.72" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="IBM">
-        <path d="M0 0v1.08h11.3V0zm0 1.62v1.08h11.3V1.62zm1.78 1.62v1.08h7.74V3.24zm0 1.62v1.08h7.74V4.86zm-1.78 1.62v1.08h11.3V6.48zm0 1.62v1.08h11.3V8.1zM12.7 0v1.08h11.3V0zm0 1.62v1.08h11.3V1.62zm1.78 1.62v1.08h1.78l.54-.54-.54-.54zm3.46 0 .54.54-.54.54h2.86V3.24zm-3.46 1.62v1.08h1.78l.54-.54-.54-.54zm3.46 0 .54.54-.54.54h2.86V4.86zM14.48 6.48v1.08h1.78l.54-.54-.54-.54zm3.46 0 .54.54-.54.54h2.86V6.48zm-5.24 1.62v1.08h11.3V8.1z" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    id: "mit",
-    url: "https://www.mit.edu",
-    label: "MIT",
-    svg: (
-      <svg viewBox="0 0 200 55" className="w-auto h-9 max-h-full max-w-full object-contain" aria-label="MIT">
-        <text x="0" y="44" fontFamily="'Times New Roman', Times, serif" fontWeight="900" fontSize="58" fill="#A31F34">MIT</text>
-      </svg>
-    ),
-  },
-  {
-    id: "popularscience",
-    url: "https://www.popsci.com",
-    label: "Popular Science",
-    svg: (
-      <svg viewBox="0 0 300 60" className="w-auto h-9 max-h-full max-w-full object-contain" aria-label="Popular Science">
-        <rect x="0" y="0" width="300" height="60" rx="4" fill="#D0021B"/>
-        <text x="12" y="20" fontFamily="'Arial', Helvetica, sans-serif" fontWeight="900" fontSize="14" fill="#FFFFFF" letterSpacing="1">POPULAR</text>
-        <text x="12" y="42" fontFamily="'Arial', Helvetica, sans-serif" fontWeight="900" fontSize="22" fill="#FFFFFF" letterSpacing="-0.5">SCIENCE</text>
-      </svg>
-    ),
-  },
-  {
-    id: "canon",
-    url: "https://www.canon.com",
-    label: "Canon",
-    svg: (
-      <svg viewBox="0 0 300 80" className="w-auto h-9 max-h-full max-w-full object-contain" aria-label="Canon">
-        <text x="0" y="64" fontFamily="'Times New Roman', Times, serif" fontStyle="italic" fontWeight="400" fontSize="80" fill="currentColor">Canon</text>
-      </svg>
-    ),
-  },
-  {
-    id: "gopro",
-    url: "https://www.gopro.com",
-    label: "GoPro",
-    svg: (
-      <svg viewBox="0 0 120 36" className="w-auto h-9 max-h-full max-w-full object-contain" aria-label="GoPro">
-        <text x="0" y="28" fontFamily="'Arial Black', 'Arial Bold', Gadget, sans-serif" fontWeight="900" fontSize="30" fill="currentColor">GoPro</text>
-      </svg>
-    ),
-  },
-  {
-    id: "redbull",
-    url: "https://www.redbull.com",
-    label: "Red Bull",
-    svg: (
-      <svg viewBox="0 0 607 147" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="Red Bull">
-        <g transform="matrix(0.900641,0,0,0.705882,9.02455,29.4037)">
-          <g transform="matrix(4.62633,0,0,5.90278,-6.58925,-73.8393)">
-            <path d="M117.383,20.086L117.383,31.59C117.09,36.149 110.387,36.149 110.094,31.59L110.094,20.086L103.754,20.086L103.754,32.836C103.754,37.142 108.219,40.633 113.715,40.633C119.211,40.633 123.676,37.142 123.676,32.836L123.676,20.086L117.383,20.086Z" fill="currentColor"/>
-            <path d="M138,6.412L138,39.892L144.375,39.892L144.375,6.412L138,6.412Z" fill="currentColor"/>
-            <path d="M127.176,39.892L133.551,39.892L133.551,6.412L127.176,6.412L127.176,39.892Z" fill="currentColor"/>
-            <path d="M95.953,22.477C97.719,20.892 98.737,18.638 98.766,16.267C98.762,14.129 97.938,12.076 96.464,10.528C94.964,8.856 92.25,7.918 88.612,7.918L77.707,7.918L77.707,39.892L91.793,39.892C97.184,39.809 101.543,35.731 101.543,30.735C101.535,27.099 100.254,24.5 95.953,22.477ZM90.612,34.322L84.512,34.322L84.512,13.431L88.762,13.431C90.671,13.52 92.171,15.106 92.151,17.017C92.151,18.888 90.632,20.403 88.762,20.399L86.55,20.399L86.55,26.145L90.612,26.145C96.085,26.145 96.085,34.349 90.612,34.349L90.612,34.322Z" fill="currentColor"/>
-            <path d="M21.487,17.384C21.464,14.86 20.438,12.447 18.632,10.677C16.832,8.908 14.397,7.927 11.871,7.951L0.203,7.951L0.203,39.892L6.987,39.892L6.987,13.431L10.5,13.431C12.882,13.349 14.871,15.235 14.91,17.619C14.805,20.004 12.8,21.869 10.41,21.793L8.835,21.793L8.835,29.438L15.585,39.892L23.535,39.892L14.16,26.552C18.43,25.559 21.46,21.767 21.487,17.384Z" fill="currentColor"/>
-            <path d="M33.352,19.259C27.565,19.415 22.957,24.149 22.957,29.934C22.957,35.724 27.565,40.457 33.352,40.615C37.8,40.615 41.266,38.602 43.059,35.455L37.875,33.059C37.125,34.576 35.565,35.52 33.878,35.481C31.569,35.582 29.621,33.787 29.535,31.477L29.535,31.258L43.589,31.258C43.632,30.832 43.651,30.408 43.647,29.977C43.746,23.047 39.18,19.259 33.352,19.259ZM29.512,27.622C29.414,25.403 31.188,23.552 33.41,23.552C35.628,23.552 37.401,25.403 37.305,27.622L29.512,27.622Z" fill="currentColor"/>
-            <path d="M69,39.892L69,6.412L62.617,6.412L62.617,22.258C60.921,20.547 58.612,19.58 56.203,19.567C50.953,19.567 46.664,24.24 46.664,30C46.664,35.758 50.94,40.477 56.203,40.477C58.637,40.457 60.957,39.457 62.647,37.711L62.647,39.961L69,39.892ZM58.012,35C55.434,35 53.332,32.707 53.332,29.879C53.332,27.052 55.434,24.727 58.012,24.727C60.594,24.727 62.699,27.024 62.699,29.856C62.699,32.692 60.602,35 58.012,35Z" fill="currentColor"/>
-          </g>
-        </g>
-      </svg>
-    ),
-  },
-  {
-    id: "tesla",
-    url: "https://www.tesla.com",
-    label: "Tesla",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="Tesla">
-        <path d="M12 5.362l2.475-3.026A10.52 10.52 0 0 1 19.5 3.78C17.7 4.46 14.85 5.36 12 5.36M9.525 2.335A10.52 10.52 0 0 1 14.48 2.3L12 5.362 9.525 2.335zM12 5.362C9.15 5.36 6.3 4.46 4.5 3.78a10.52 10.52 0 0 1 5.025-1.445L12 5.362zM0 3.78C1.5 4.36 6 6.01 7.05 8.57L11.1 21.7 12 24l.9-2.3 4.05-13.13C18 6.01 22.5 4.36 24 3.78a13.185 13.185 0 0 0-4.5-1.44s-2.25 2.77-7.5 2.77-7.5-2.77-7.5-2.77A13.185 13.185 0 0 0 0 3.78" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    id: "nvidia",
-    url: "https://www.nvidia.com",
-    label: "NVIDIA",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="NVIDIA">
-        <path d="M9.033.333v1.053c-.358-.027-.719-.042-1.081-.046v.002C4.54 1.387 2.15 3.817 2.012 6.9v.028a5.8 5.8 0 0 0-.005.127v9.001L3.83 17.48V7.056c.117-2.264 2.067-4.004 4.382-3.87.148.009.294.025.439.047l.382.074v14.173l1.823 1.445V1.36zm5.897 1.895C12.38 2.228 10.028 3.35 8.748 5.162c1.085-.534 2.278-.76 3.483-.744 1.17.015 2.334.3 3.393.833v11.01c-.882.52-1.908.744-2.933.638l-.002-.001v1.574c.102.009.204.016.306.02 1.85.07 3.673-.568 5.098-1.778V3.573c-1.1-.84-2.397-1.29-3.73-1.35l-.433.005zM0 6.856v10.088l2.007 1.59V8.418zm18.996.7v8.998c1.214-.916 2.032-2.226 2.236-3.7.205-1.476-.222-2.96-1.19-4.136a6.4 6.4 0 0 0-1.046-.895v-.267zm2.748-1.688C22.75 7.26 24 9.42 24 11.68v.005c-.002 2.25-1.245 4.4-3.248 5.712V5.562c.005.097.008.194.01.29l-.018.016z" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    id: "warnerbros",
-    url: "https://www.warnerbros.com",
-    label: "Warner Bros.",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="Warner Bros.">
-        <path d="M12.004 0C5.377 0 0 5.377 0 12.004 0 18.63 5.377 24 12.004 24 18.63 24 24 18.63 24 12.004 24 5.377 18.63 0 12.004 0zm-.41 6.67c.088 0 .176.003.263.009l-2.21 10.685h-.803L7.16 12.47l-1.696 4.894H4.66l-2.21-10.685h1.49l1.542 7.898L7.16 9.487h.806l1.667 5.09 1.542-7.898c.138-.007.275-.01.42-.01zm5.527.009a6.39 6.39 0 0 1 1.81.263l-.397 1.338a5.022 5.022 0 0 0-1.413-.2c-.54 0-.863.202-.863.54 0 .929 2.87.68 2.87 2.941 0 1.434-1.155 2.276-2.94 2.276-.67 0-1.316-.112-1.929-.335l.395-1.386c.501.212 1.028.33 1.567.33.672 0 1.009-.263 1.009-.66 0-1.01-2.87-.787-2.87-2.958 0-1.322 1.065-2.149 2.761-2.149zm-4.79.078h1.464v2.84h-1.464V6.756z" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    id: "claude",
-    url: "https://www.anthropic.com/claude",
-    label: "Claude",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="Claude">
-        <path d="M4.709 15.955l4.72-12.327H6.22L1.5 15.955h3.209zm5.756 0l3.501-9.338 3.504 9.338H13.24l-.822-2.233H9.38l-.818 2.233H10.465zM12 7.637l1.148 3.088h-2.297L12 7.637zm4.047 8.318h3.51l1.003-2.685H22.5L18.004 3.628h-3.51l4.497 12.327h-2.944z" fill="currentColor"/>
-      </svg>
-    ),
-  },
-  {
-    id: "nbc",
-    url: "https://www.nbc.com",
-    label: "NBC",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-auto h-9 max-h-full max-w-full object-contain" fill="currentColor" aria-label="NBC">
-        <path d="M21.023 12.24c-.35.35-.826.527-1.303.493l-6.574-4.61 1.44-1.44 6.437 5.557zm1.477-4.68A3.12 3.12 0 0 0 18.45 4.5c-.507 0-1.003.126-1.449.364l-5.001 3.511 1.527 1.527 5.548-3.85a.625.625 0 0 1 .875.875l-3.853 5.545 1.527 1.527 3.514-5.003c.237-.446.363-.941.363-1.446zm-9.977 7.584l-6.572 4.608A2.15 2.15 0 0 1 4.65 19.5a3.12 3.12 0 0 1-3.15-3.15c0-.469.113-.93.333-1.344L5.347 9.9l1.527 1.527L2.98 16.2a.625.625 0 0 0 .875.875l4.773-3.384 1.895 6.809zm1.977 1.656v-7.6l-2 2v3.6l2 2zm-6-6l-2-2v7.6l2-2V10.8zm6.574-4.61L8.5 2.64A2.134 2.134 0 0 0 7.2 2.29a3.12 3.12 0 0 0-3.15 3.15c0 .507.126 1.003.364 1.449L7.9 11.9l1.527-1.527L5.57 5.6a.625.625 0 0 1 .875-.875L12 8.574l1.094-1.095z" fill="currentColor"/>
-      </svg>
-    ),
-  },
+  { id: "nationalgeographic", url: "https://www.nationalgeographic.com", label: "National Geographic", slug: "nationalgeographic" },
+  { id: "thenorthface",       url: "https://www.thenorthface.com",       label: "The North Face",       slug: "thenorthface" },
+  { id: "google",             url: "https://www.google.com",             label: "Google",               slug: "google" },
+  { id: "ibm",                url: "https://www.ibm.com",               label: "IBM",                  slug: "ibm" },
+  { id: "mit",                url: "https://www.mit.edu",               label: "MIT",                  slug: "mit" },
+  { id: "popularscience",     url: "https://www.popsci.com",            label: "Popular Science",      slug: "popularscience" },
+  { id: "canon",              url: "https://www.canon.com",             label: "Canon",                slug: "canon" },
+  { id: "gopro",              url: "https://www.gopro.com",             label: "GoPro",                slug: "gopro" },
+  { id: "redbull",            url: "https://www.redbull.com",           label: "Red Bull",             slug: "redbull" },
+  { id: "tesla",              url: "https://www.tesla.com",             label: "Tesla",                slug: "tesla" },
+  { id: "nvidia",             url: "https://www.nvidia.com",            label: "NVIDIA",               slug: "nvidia" },
+  { id: "warnerbros",         url: "https://www.warnerbros.com",        label: "Warner Bros.",         slug: "warnerbros" },
+  { id: "anthropic",          url: "https://www.anthropic.com/claude",  label: "Claude",               slug: "anthropic" },
+  { id: "nbc",                url: "https://www.nbc.com",               label: "NBC",                  slug: "nbc" },
 ];
 
 function LogoItem({ partner }) {
+  const inner = (() => {
+    if (partner.type === "img-pair") {
+      return (
+        <span className="inline-flex items-center gap-1.5">
+          <img
+            src={partner.icon}
+            alt=""
+            aria-hidden="true"
+            className="h-7 w-auto object-contain"
+          />
+          <img
+            src={partner.wordmark}
+            alt={partner.label}
+            className="h-4 w-auto object-contain"
+          />
+        </span>
+      );
+    }
+    if (partner.type === "svg") {
+      return (
+        <span className="text-neutral-700 dark:text-neutral-300">
+          {partner.svg}
+        </span>
+      );
+    }
+    // CDN simple-icons — black logo, inverted to white in dark mode
+    return (
+      <img
+        src={CDN(partner.slug)}
+        alt={partner.label}
+        width={120}
+        height={40}
+        className="h-7 w-auto max-w-[120px] object-contain dark:invert"
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  })();
+
   return (
     <a
       id={`partner-${partner.id}`}
@@ -236,49 +102,51 @@ function LogoItem({ partner }) {
       rel="noopener noreferrer"
       aria-label={partner.label}
       title={partner.label}
-      className="group relative inline-flex items-center justify-center w-[120px] h-[52px] transition-all duration-300 hover:-translate-y-0.5"
+      className="
+        group
+        inline-flex items-center justify-center
+        w-[120px] h-[48px]
+        opacity-50 hover:opacity-100
+        transition-opacity duration-300
+        hover:-translate-y-0.5 transition-transform
+      "
     >
-      <div className="h-9 w-28 max-w-full flex items-center justify-center text-neutral-500 group-hover:text-white dark:text-neutral-400 dark:group-hover:text-white transition-colors duration-300">
-        {partner.isImg ? (
-          <div className="flex items-center gap-1.5">
-            <img
-              src={partner.imgSrc}
-              alt={partner.label}
-              className="h-8 w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ filter: "grayscale(100%) brightness(1.5)" }}
-            />
-            <img
-              src={partner.imgTextSrc}
-              alt=""
-              className="h-5 w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-              style={{ filter: "grayscale(100%) brightness(1.5)" }}
-            />
-          </div>
-        ) : (
-          partner.svg
-        )}
-      </div>
+      {inner}
     </a>
   );
 }
 
 export default function PartnerLogos({ lang = "tr" }) {
-  const heading = lang === "en" ? "Partners & References" : "Ortaklar & Referanslar";
-  const sub = lang === "en"
-    ? "Organizations defining the frontier of science and exploration"
-    : "Bilim ve keşfin sınırlarını belirleyen kuruluşlar";
+  const heading =
+    lang === "en" ? "Partners & References" : "Ortaklar & Referanslar";
+  const sub =
+    lang === "en"
+      ? "Organizations defining the frontier of science and exploration"
+      : "Bilim ve keşfin sınırlarını belirleyen kuruluşlar";
 
   return (
-    <section className="glass-nav transition-theme" style={{ paddingTop: "48px", paddingBottom: "48px", borderTop: "1px solid var(--border-color)" }}>
+    <section
+      className="glass-nav transition-theme"
+      style={{
+        paddingTop: "48px",
+        paddingBottom: "48px",
+        borderTop: "1px solid var(--border-color)",
+      }}
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <p className="font-mono text-[10px] uppercase tracking-widest mb-2" style={{ color: "var(--foreground-muted)" }}>
+          <p
+            className="font-mono text-[10px] uppercase tracking-widest mb-2"
+            style={{ color: "var(--foreground-muted)" }}
+          >
             {heading}
           </p>
-          <p className="text-sm" style={{ color: "var(--foreground-subtle)" }}>{sub}</p>
+          <p className="text-sm" style={{ color: "var(--foreground-subtle)" }}>
+            {sub}
+          </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
           {PARTNERS.map((p) => (
             <LogoItem key={p.id} partner={p} />
           ))}
