@@ -1,75 +1,73 @@
 export const posts = [
   {
     id: 1,
-    title: "Kuantum Kütleçekimi ve Karadelik Tekilliklerinin Gizemi",
-    slug: "kuantum-kutlecekimi-karadelik-tekillikleri",
-    excerpt: "Genel Görelilik ile Kuantum Mekaniği'nin çarpıştığı sınır çizgisi: Karadeliklerin merkezindeki tekillik gerçekten var mı, yoksa uzay-zamanın kendisi mi dokunuyor?",
-    category: "Kuantum Fiziği",
-    readTime: "7 dk okuma",
+    title: "Zamanın Yönü: Entropi ve Termodinamiğin İkinci Yasası",
+    slug: "zamanin-yonu-entropi-ve-termodinamigin-ikinci-yasasi",
+    excerpt: "Neden geçmişi hatırlayıp geleceği hatırlayamıyoruz? Termodinamiğin ikinci yasası ve evrenin başlangıcındaki ultra-düşük entropi durumu, zamanın tek yönlü akışını nasıl dikte ediyor?",
+    category: "Teorik Fizik",
+    readTime: "12 dk okuma",
     date: "14 Temmuz 2026",
-    image: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80",
     content: `
-      <p class="lead text-xl text-zinc-300 mb-6">Fizik dünyasının en büyük çözülmemiş gizemlerinden biri, makro evreni açıklayan Genel Görelilik Teorisi ile mikro evreni açıklayan Kuantum Mekaniği'ni tek bir potada eritememiş olmasıdır. Bu çelişkinin en uç noktasını ise karadeliklerin merkezindeki "tekillik" oluşturuyor.</p>
+      <p class="lead text-lg text-zinc-300 mb-6">Fiziğin en temel ve sarsıcı sorularından biri, mikroskobik düzeydeki hareket yasalarının tamamı zaman-simetrik iken (yani denklemlerde zamanı ileri veya geri almak hiçbir şeyi değiştirmezken), makroskobik evrende zamanın neden kararlı bir şekilde tek bir yöne aktığıdır. Bu sorunun cevabı, istatistiksel mekanik ve Termodinamiğin İkinci Yasası'nda saklıdır.</p>
       
-      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Gözlem Ufkunun Ötesi</h2>
-      <p class="text-zinc-300 mb-4">Einstein'ın teorisine göre, yeterince büyük bir kütle kendi yerçekimi altında çöktüğünde, hacmi sıfıra yaklaşırken yoğunluğu sonsuza giden bir nokta oluşturur. İşte biz bu noktaya 'tekillik' diyoruz. Ancak doğada 'sonsuz' değerlerin ortaya çıkması, genellikle teorimizin bir yerlerde eksik veya hatalı olduğuna işaret eder.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Entropi: Olasılıkların Geometrisi</h2>
+      <p class="text-zinc-300 mb-4">Ludwig Boltzmann'ın formüle ettiği üzere entropi, bir sistemin makroskopik durumuna karşılık gelen mikroskobik konfigürasyonların (mikro-durumların) sayısının bir ölçüsüdür. Basit bir ifadeyle, düzenli bir durumun (düşük entropi) gerçekleşme olasılığı çok düşükken, dağınık ve düzensiz durumların (yüksek entropi) gerçekleşme olasılığı ezici derecede yüksektir. İkinci yasa, kapalı bir sistemin entropisinin zamanla her zaman artma eğiliminde olduğunu söyler.</p>
       
       <blockquote class="border-l-4 border-accent pl-4 my-6 italic text-zinc-400">
-        "Karadeliğin içi sadece maddeyi değil, fizik yasalarını da yutan kozmik bir laboratuvardır."
+        "Zaman oku, evrenin düzenden düzensizliğe doğru yaptığı kaçınılmaz istatistiksel yolculuğun makroskopik bir yansımasıdır."
       </blockquote>
 
-      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Kuantum Köpüğü ve Sicim Teorisi</h2>
-      <p class="text-zinc-300 mb-4">Kuantum kütleçekim teorileri (örneğin Döngüsel Kuantum Kütleçekimi veya Sicim Teorisi), uzay-zamanın pürüzsüz bir örtü olmadığını, Planck ölçeğinde (10^-35 metre) adeta köpüklü, dalgalı ve kesikli bir yapıya sahip olduğunu öne sürer. Bu teoriler doğruysa, karadeliklerin merkezinde yoğunluk hiçbir zaman sonsuza ulaşmaz. Bunun yerine, kuantum etkileri yerçekimsel çökmeyi durdurur ve maddeyi inanılmaz derecede yoğun ama sonlu bir "kuantum yıldızı" veya "sicim yumağı" halinde tutar.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Geçmiş Hipotezi ve Kozmolojik Başlangıç</h2>
+      <p class="text-zinc-300 mb-4">Eğer evren zamanla düzensizliğe gidiyorsa, bu durum geçmişte çok daha düzenli (düşük entropili) olduğu anlamına gelir. Büyük Patlama anında evrenin neden bu kadar olağanüstü derecede düşük entropiye sahip olduğu kozmolojinin en büyük bilmecelerinden biridir. Kozmolog Sean Carroll ve meslektaşları, zamanın yönünü doğrudan bu "Geçmiş Hipotezi"ne bağlar. Eğer Big Bang sırasında madde ve yerçekimi homojen ve ultra-düşük entropili bir yapıda olmasaydı, bugün ne galaksiler, ne yıldızlar ne de zamanı deneyimleyebilecek canlı organizmalar var olabilirdi.</p>
       
-      <p class="text-zinc-300 mb-4">Gelecekte karadeliklerin gözlem ufuklarından sızan Hawking Işıması'nı daha detaylı inceleyebildiğimizde, bu kozmik gizemin perdesini tamamen aralayabileceğiz. O zamana kadar karadelikler, evrenin en ekstrem sınır karakolları olarak kalmaya devam edecek.</p>
+      <p class="text-zinc-300 mb-4">Nihayetinde, kahvenize damlattığınız sütün dağılması, kırılan bir bardağın kendiliğinden birleşmemesi ve biyolojik yaşlanma süreçlerimiz, evrenin kozmik ölçekteki entropi artışıyla doğrudan ilintilidir. Zamanın akışı, yerel bir illüzyon değil, kozmosun en derin termodinamik gerçeğidir.</p>
     `
   },
   {
     id: 2,
-    title: "Mars'ta Dağcılık: Olympus Mons'a Tırmanış Rehberi",
-    slug: "marsta-dagcilik-olympus-mons-tirmanisi",
-    excerpt: "Güneş Sistemi'nin bilinen en yüksek yanardağı Olympus Mons'a tırmanmak nasıl bir his olurdu? Atmosferin bittiği sınırda, yerçekimsiz dağcılığın fizyolojik sınırlarını zorluyoruz.",
-    category: "Ekstrem Macera & Uzay",
-    readTime: "9 dk okuma",
+    title: "8000 Metrenin Üstü: Ekstrem Dağcılıkta Hipoksi ve Aklimatizasyon Fiziği",
+    slug: "8000-metrenin-ustu-ekstrem-dagcilikta-hipoksi",
+    excerpt: "Ölüm Bölgesi olarak adlandırılan ekstrem irtifalarda insan vücudundaki kısmi oksijen basıncının düşüşü, hücresel solunum fiziğini ve aklimatizasyon mekanizmalarını nasıl etkiler?",
+    category: "Ekstrem Doğa Fiziği",
+    readTime: "10 dk okuma",
     date: "12 Temmuz 2026",
-    image: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
     content: `
-      <p class="lead text-xl text-zinc-300 mb-6">Dünya'daki Everest Dağı (8.848m) dağcılar için zirve noktası olabilir. Ancak Güneş Sistemi'nin gerçek devinin yanında sadece küçük bir tepe gibi kalır. Mars'ta yer alan Olympus Mons yanardağı, tam 22 kilometre yüksekliğiyle Everest'in yaklaşık üç katıdır.</p>
+      <p class="lead text-lg text-zinc-300 mb-6">Yeryüzündeki 8000 metreyi aşan 14 zirve, dağcılar için sadece fiziksel bir engel değil, aynı zamanda sınırları zorlayan fizyolojik bir laboratuvardır. Bu yüksekliklerde atmosfer basıncı deniz seviyesindekinin yaklaşık üçte birine düşer. Bu durum, havadaki oksijen oranının azalmasından değil, atmosfer basıncının düşmesiyle oksijenin kısmi basıncının azalmasından kaynaklanır.</p>
       
-      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Görkemli Dev ile Tanışma</h2>
-      <p class="text-zinc-300 mb-4">Olympus Mons o kadar geniştir ki (yaklaşık Fransa büyüklüğünde bir tabana sahiptir), dağın yamacında duran bir astronot-dağcı, eğim çok yumuşak olduğu için bir dağa tırmandığını bile fark edemez. Zirveye doğru yaklaştıkça karşınıza çıkan 6 kilometre yüksekliğindeki dik uçurumlar ise gerçek tırmanış heyecanını başlatır.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Ölüm Bölgesi ve Hipoksi</h2>
+      <p class="text-zinc-300 mb-4">Fizyolojide 8000 metrenin üzeri 'Ölüm Bölgesi' (Death Zone) olarak tanımlanır. Bu irtifada insan vücudu kendini yenileyemez ve tüketim hızı üretim hızını aşar. Kısmi basınç farkı azaldığı için akciğer alveollerinden kana oksijen geçişi kritik düzeyde yavaşlar. Bu duruma hipoksi (oksijen yetmezliği) denir. Hücreler aerobik solunumdan anaerobik solunuma geçtikçe laktik asit birikir, beyin ve akciğer ödemi riski katlanarak artar.</p>
       
       <blockquote class="border-l-4 border-accent pl-4 my-6 italic text-zinc-400">
-        "Dünyadaki dağcılık yerçekimine karşı bir savaştır; Mars'ta ise atmosferin yokluğuna ve dondurucu kozmik radyasyona karşı hayatta kalma mücadelesidir."
+        "8000 metrede atılan her adım, fiziksel yerçekimi kuvvetiyle birlikte, kandaki hemoglobin doygunluğunun sınırlarına karşı verilen biyokimyasal bir savaştır."
       </blockquote>
 
-      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Düşük Yerçekimi Avantajı ve Atmosfer Zorluğu</h2>
-      <p class="text-zinc-300 mb-4">Mars'ın yerçekimi Dünya'nın sadece %38'i kadardır. Bu durum, 100 kg ağırlığındaki bir dağcının ekipmanlarıyla birlikte Mars'ta sadece 38 kg hissetmesini sağlar. Teorik olarak devasa atlamalar yapabilir ve Dünya'da taşıyamayacağınız ağırlıktaki yaşam destek ünitelerini kolayca sırtınızda taşıyabilirsiniz.</p>
-      
-      <p class="text-zinc-300 mb-4">Fakat Olympus Mons'un zirvesi Mars'ın incecik atmosferinin bile tamamen dışına, neredeyse uzay boşluğuna uzanır. Zirve tırmanışı, teknik bir tırmanıştan ziyade bir uzay yürüyüşüdür. Bu yolculuk, insanlığın sınırlarını zorlayan nihai ekstrem macera olacaktır.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Aklimatizasyonun Biyofiziksel Süreci</h2>
+      <p class="text-zinc-300 mb-4">İnsan vücudu bu ekstrem koşullara uyum sağlamak için aklimatizasyon (iklimleştirme) adı verilen biyofiziksel süreçleri devreye sokar. Böbreklerden salgılanan eritropoietin (EPO) hormonu kemik iliğini uyararak alyuvar (kırmızı kan hücresi) üretimini artırır. Kanın viskozitesi (akışkanlığa karşı direnci) artar, solunum derinleşir ve kalp debisi yükselir. Ancak bu adaptasyonların bile bir sınırı vardır ve ölüm bölgesinde geçirilen her dakika hücre ömründen çalmaya devam eder.</p>
     `
   },
   {
     id: 3,
-    title: "Mariana Çukuru'nun Altında Gizlenen Kuantum Yaşam Kanıtları",
-    slug: "mariana-cukuru-kuantum-yasam-kanitlari",
-    excerpt: "11.000 metre derinlikte, güneş ışığının asla ulaşamadığı ve tonlarca basıncın altındaki hidrotermal bacalarda biyolojik kuantum tünelleme süreçleri gözlemlendi.",
-    category: "Ekstrem Doğa Bilimi",
-    readTime: "6 dk okuma",
+    title: "Kozmik Boşluklar ve Galaktik İplikçikler: Evrenin En Büyük Yapıları",
+    slug: "kozmik-bosluklar-ve-galaktik-iplikcikler",
+    excerpt: "Gözlemlenebilir evrenin devasa haritasında yer alan, milyonlarca ışık yılı genişliğindeki kozmik ağ yapıları ve neredeyse hiçbir madde içermeyen devasa boşlukların kökeni.",
+    category: "Kozmoloji",
+    readTime: "9 dk okuma",
     date: "10 Temmuz 2026",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1538370965046-79c0d6907d47?auto=format&fit=crop&w=800&q=80",
     content: `
-      <p class="lead text-xl text-zinc-300 mb-6">Mariana Çukuru, gezegenimizin en az keşfedilmiş, en gizemli noktalarından biridir. Yüzeydeki basıncın tam 1000 katının yaşandığı bu zifiri karanlık ortamda, yaşamın sınırlarını yeniden tanımlayan organizmalar keşfedilmeye devam ediyor.</p>
+      <p class="lead text-lg text-zinc-300 mb-6">Evrene en büyük ölçekte baktığımızda, galaksilerin rastgele dağılmadığını görürüz. Bunun yerine kozmos, adeta devasa bir örümcek ağına benzeyen Kozmik Ağ (Cosmic Web) yapısıyla örülüdür. Bu ağın düğüm noktalarında galaksi kümeleşmeleri yer alırken, aralarında ise akılalmaz büyüklükte boşluklar bulunur.</p>
       
-      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Ekstrem Koşullarda Yaşamın Sırrı</h2>
-      <p class="text-zinc-300 mb-4">Güneş ışığının olmadığı bu derinliklerde fotosentez imkansızdır. Buradaki ekosistem, gücünü kemosentezden (hidrotermal bacalardan fışkıran kükürtlü bileşiklerin kimyasal enerjisinden) alır. Ancak son araştırmalar, buradaki mikroorganizmaların aşırı basınç altında enzimatik reaksiyonlarını hızlandırmak için kuantum tünelleme gerçekleştirdiğini gösteriyor.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Galaktik İplikçikler (Filamentler)</h2>
+      <p class="text-zinc-300 mb-4">Galaktik iplikçikler, evrendeki kütleçekimsel olarak birbirine bağlı en büyük ipliksi yapılardır. Karanlık maddenin kütleçekim potansiyel kuyuları boyunca dizilen hidrojen gazı ve galaksilerden oluşurlar. Sloan Büyük Duvarı veya Herkül-Corona Borealis Büyük Duvarı gibi yapılar milyarlarca ışık yılı uzunluğa ulaşarak insan zihninin algı sınırlarını zorlar.</p>
       
       <blockquote class="border-l-4 border-accent pl-4 my-6 italic text-zinc-400">
-        "Kuantum tünelleme, atom altı parçacıkların aşılmaz gibi görünen enerji engellerini adeta içinden geçerek aşmasıdır. Yaşam, en karanlık çukurda bile kuantum mekaniğini kullanmanın bir yolunu bulmuştur."
+        "Kozmik ağ, karanlık maddenin evrenin şafağında ördüğü ve görünür maddenin üzerine tutunarak parladığı kozmik bir iskelettir."
       </blockquote>
 
-      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Kozmik Yaşama Dair İpuçları</h2>
-      <p class="text-zinc-300 mb-4">Mariana Çukuru'ndaki bu bulgular, sadece Dünya'daki yaşamın kökenine ışık tutmakla kalmıyor, aynı zamanda Jüpiter'in uydusu Europa veya Satürn'ün uydusu Enceladus gibi buz kaplı okyanus dünyalarında da benzer yaşam formlarının bulunabileceği ihtimalini güçlendiriyor. Evrenin en derin ve en ekstrem köşeleri, kuantum bağlarıyla birbirine sıkı sıkıya bağlı olabilir.</p>
+      <h2 class="text-2xl font-bold text-white mt-8 mb-4">Kozmik Boşluklar (Voids)</h2>
+      <p class="text-zinc-300 mb-4">İplikçiklerin çevrelediği devasa, karanlık alanlara kozmik boşluklar (voids) denir. Bu bölgeler o kadar seyrektir ki, metreküp başına düşen madde miktarı evren ortalamasının çok altındadır. Örneğin Bootes Boşluğu (Bootes Void), yaklaşık 330 milyon ışık yılı çapındadır ve içinde neredeyse hiç galaksi barındırmaz. Bu boşlukların incelenmesi, karanlık enerjinin genişleme hızını ve evrenin ivmelenmesini anlamamızda kritik rol oynamaktadır.</p>
     `
   }
 ];

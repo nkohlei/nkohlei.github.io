@@ -1,59 +1,69 @@
 import Link from "next/link";
 
-export default function BlogCard({ post }) {
-  return (
-    <article className="group relative flex flex-col justify-between overflow-hidden rounded-2xl glass-panel glass-panel-hover p-5 h-full">
-      {/* Decorative background glow on hover */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      <div>
-        {/* Image Container */}
-        <div className="relative mb-5 overflow-hidden rounded-xl aspect-video w-full bg-zinc-900 border border-white/5">
-          <img
-            src={post.image}
-            alt={post.title}
-            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-          {/* Glass Overlay Category Tag */}
-          <span className="absolute top-3 left-3 rounded-full bg-black/60 backdrop-blur-md px-3 py-1 text-xs font-semibold text-accent border border-white/10">
-            {post.category}
-          </span>
+export default function BlogCard({ post, minimal = false }) {
+  if (minimal) {
+    return (
+      <article className="group relative border-b border-white/5 py-6 last:border-b-0">
+        <div className="flex flex-col justify-between h-full">
+          <div>
+            <div className="flex items-center gap-3 text-xs text-zinc-500 mb-2">
+              <span className="text-zinc-400 font-mono">{post.category}</span>
+              <span>•</span>
+              <span>{post.readTime}</span>
+            </div>
+            <h4 className="text-lg font-bold text-white leading-snug group-hover:text-accent transition-colors duration-300">
+              <Link href={`/blog/${post.slug}`} className="focus:outline-none">
+                {post.title}
+              </Link>
+            </h4>
+            <p className="text-sm text-zinc-400 mt-2 line-clamp-2 leading-relaxed">
+              {post.excerpt}
+            </p>
+          </div>
+          <div className="mt-4 flex items-center text-xs font-mono text-zinc-500 group-hover:text-white transition-colors duration-300">
+            [ OKU ]
+          </div>
         </div>
+      </article>
+    );
+  }
 
-        {/* Read time and date */}
-        <div className="flex items-center gap-3 text-xs text-zinc-400 mb-3">
-          <span>{post.date}</span>
-          <span className="h-1 w-1 rounded-full bg-zinc-600" />
+  return (
+    <article className="group relative flex flex-col justify-between overflow-hidden rounded-lg border border-white/5 bg-zinc-950/40 p-6 h-full transition-all duration-300 hover:border-white/10 hover:bg-zinc-950/60">
+      <div>
+        {/* Category & Time */}
+        <div className="flex items-center justify-between text-xs text-zinc-500 mb-4 font-mono">
+          <span>{post.category}</span>
           <span>{post.readTime}</span>
         </div>
 
-        {/* Title */}
-        <h3 className="text-xl font-bold text-white leading-snug mb-3 group-hover:text-accent transition-colors duration-300 line-clamp-2">
+        {/* Big Title */}
+        <h3 className="text-2xl font-extrabold text-white leading-tight mb-4 group-hover:text-accent transition-colors duration-300">
           <Link href={`/blog/${post.slug}`} className="focus:outline-none">
-            <span className="absolute inset-0" aria-hidden="true" />
             {post.title}
           </Link>
         </h3>
 
+        {/* Image Container */}
+        <div className="relative mb-5 overflow-hidden rounded border border-white/5 aspect-video w-full bg-zinc-900">
+          <img
+            src={post.image}
+            alt={post.title}
+            className="h-full w-full object-cover object-center grayscale opacity-80 transition-all duration-500 group-hover:scale-[1.02] group-hover:grayscale-0 group-hover:opacity-100"
+            loading="lazy"
+          />
+        </div>
+
         {/* Excerpt */}
-        <p className="text-sm text-zinc-300 leading-relaxed line-clamp-3 mb-4">
+        <p className="text-sm text-zinc-400 leading-relaxed mb-6">
           {post.excerpt}
         </p>
       </div>
 
       {/* Action Footer */}
-      <div className="flex items-center text-xs font-bold text-white group-hover:text-accent transition-colors duration-300">
-        Devamını Oku
-        <svg
-          className="ml-1 h-4 w-4 transform transition-transform group-hover:translate-x-1"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
+      <div className="flex items-center text-xs font-mono text-zinc-400 group-hover:text-white transition-colors duration-300">
+        [ ANALİZİ AÇ ]
+        <span className="ml-2 transform transition-transform group-hover:translate-x-1">→</span>
       </div>
     </article>
   );

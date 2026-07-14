@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b0c10;
+  --background: #0d0e12;
   --foreground: #f3f4f6;
-  --accent: #6366f1;
+  --accent: #3b82f6;
 }
 
 @theme inline {
@@ -14,6 +14,10 @@
 
 body {
   background-color: var(--background);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 40px 40px;
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   overflow-x: hidden;
@@ -21,25 +25,25 @@ body {
 
 /* Custom premium scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0b0c10;
+  background: #0d0e12;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f2937;
-  border-radius: 4px;
+  background: #1e293b;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: #334155;
 }
 
-/* Glassmorphism custom classes if needed */
+/* Glassmorphism custom classes */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .glass-panel-hover {
@@ -47,8 +51,8 @@ body {
 }
 
 .glass-panel-hover:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 25px rgba(99, 102, 241, 0.1);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
 }
