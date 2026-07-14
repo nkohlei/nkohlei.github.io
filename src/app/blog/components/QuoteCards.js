@@ -71,7 +71,7 @@ function QuoteCard({ quote, lang }) {
       ref={cardRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="tilt-card rounded-2xl p-6 flex flex-col gap-5 cursor-default select-none"
+      className="tilt-card rounded-2xl p-6 flex flex-col gap-5 cursor-default select-none border border-white/[0.08] hover:border-white/[0.18] dark:bg-[#10111A]/60 bg-white/75 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]"
       style={{
         transition: "transform 0.12s ease, box-shadow 0.4s ease, border-color 0.35s ease",
         transformStyle: "preserve-3d",

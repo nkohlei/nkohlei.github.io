@@ -140,7 +140,7 @@ export default function BlogHome() {
 
             {/* Index panel */}
             <div
-              className="glass-card rounded-xl p-4 flex-1"
+              className="glass-card rounded-xl p-4 flex-1 border border-white/[0.08] hover:border-white/[0.18] dark:bg-[#10111A]/60 bg-white/75 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)] transition-all duration-300"
             >
               {indexPosts.map((p) => (
                 <MinimalCard key={p.id} post={p} lang={lang} />
