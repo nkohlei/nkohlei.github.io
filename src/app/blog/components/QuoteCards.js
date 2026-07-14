@@ -42,138 +42,96 @@ const QUOTES = [
 ];
 
 function QuoteCard({ quote, lang }) {
-  const containerRef = useRef(null);
-  const contentRef = useRef(null);
+  const cardRef = useRef(null);
   const rafRef  = useRef(null);
 
   const onMouseMove = useCallback((e) => {
-    if (!contentRef.current) return;
+    if (!cardRef.current) return;
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(() => {
-      if (!contentRef.current || !containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
       const cx   = rect.left + rect.width  / 2;
       const cy   = rect.top  + rect.height / 2;
       const dx   = (e.clientX - cx) / (rect.width  / 2);
       const dy   = (e.clientY - cy) / (rect.height / 2);
-      contentRef.current.style.transform =
+      cardRef.current.style.transform =
         `perspective(900px) rotateX(${dy * -6}deg) rotateY(${dx * 6}deg) translateY(-6px)`;
     });
   }, []);
 
   const onMouseLeave = useCallback(() => {
-    if (!contentRef.current) return;
-    contentRef.current.style.transform =
+    if (!cardRef.current) return;
+    cardRef.current.style.transform =
       "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
   }, []);
 
   return (
     <div
-      ref={containerRef}
+      ref={cardRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="relative group preserve-3d h-full w-full cursor-default select-none"
-      style={{ isolation: "isolate" }}
+      className="tilt-card rounded-2xl p-6 flex flex-col gap-5 cursor-default select-none"
+      style={{
+        transition: "transform 0.12s ease, box-shadow 0.4s ease, border-color 0.35s ease",
+        transformStyle: "preserve-3d",
+      }}
     >
-      {/* Decoupled glass background layer */}
-      <div
-        className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500 group-hover:scale-[1.02]"
-        style={{
-          background: "var(--glass-bg)",
-          backdropFilter: "blur(24px) saturate(160%)",
-          WebkitBackdropFilter: "blur(24px) saturate(160%)",
+      {/* Icon + faint colour wash on hover */}
+      <div style={{
+        display: "flex", alignItems: "flex-start", justifyContent: "space-between",
+        gap: "12px",
+      }}>
+        <span style={{
+          fontSize: "22px",
+          lineHeight: 1,
+          color: "var(--foreground-subtle)",
+          fontFamily: "monospace",
+          letterSpacing: "-0.05em",
+        }}>
+          {quote.icon}
+        </span>
+        {/* micro "QUOTE" tag */}
+        <span style={{
+          fontSize: "8px", fontFamily: "var(--font-geist-mono), monospace",
+          textTransform: "uppercase", letterSpacing: "0.12em",
+          color: "var(--foreground-subtle)", opacity: 0.6,
           border: "1px solid var(--glass-border)",
-          boxShadow: "var(--glass-shadow)",
-          transform: "translateZ(0)", // GPU isolation
-        }}
-        ref={(el) => {
-          if (!el) return;
-          const container = el.closest(".group");
-          if (!container) return;
-          const enter = () => {
-            el.style.background = "var(--glass-bg-hover)";
-            el.style.borderColor = "var(--glass-border-hover)";
-            el.style.boxShadow = "var(--glass-shadow-hover)";
-            el.style.backdropFilter = "blur(28px) saturate(180%)";
-            el.style.WebkitBackdropFilter = "blur(28px) saturate(180%)";
-          };
-          const leave = () => {
-            el.style.background = "var(--glass-bg)";
-            el.style.borderColor = "var(--glass-border)";
-            el.style.boxShadow = "var(--glass-shadow)";
-            el.style.backdropFilter = "blur(24px) saturate(160%)";
-            el.style.WebkitBackdropFilter = "blur(24px) saturate(160%)";
-          };
-          container.addEventListener("mouseenter", enter);
-          container.addEventListener("mouseleave", leave);
-        }}
-      />
-
-      {/* Decoupled content layer */}
-      <div
-        ref={contentRef}
-        className="relative z-10 p-6 h-full w-full flex flex-col gap-5"
-        style={{
-          transition: "transform 0.12s ease, box-shadow 0.4s ease, border-color 0.35s ease",
-          transformStyle: "preserve-3d",
-        }}
-      >
-        {/* Icon + faint colour wash on hover */}
-        <div style={{
-          display: "flex", alignItems: "flex-start", justifyContent: "space-between",
-          gap: "12px",
+          padding: "2px 6px", borderRadius: "4px",
         }}>
-          <span style={{
-            fontSize: "22px",
-            lineHeight: 1,
-            color: "var(--foreground-subtle)",
-            fontFamily: "monospace",
-            letterSpacing: "-0.05em",
-          }}>
-            {quote.icon}
-          </span>
-          {/* micro "QUOTE" tag */}
-          <span style={{
-            fontSize: "8px", fontFamily: "var(--font-geist-mono), monospace",
-            textTransform: "uppercase", letterSpacing: "0.12em",
-            color: "var(--foreground-subtle)", opacity: 0.6,
-            border: "1px solid var(--glass-border)",
-            padding: "2px 6px", borderRadius: "4px",
-          }}>
-            QUOTE
-          </span>
-        </div>
+          QUOTE
+        </span>
+      </div>
 
-        {/* Quote text */}
-        <blockquote style={{
-          fontSize: "14px",
-          fontStyle: "italic",
-          lineHeight: "1.70",
+      {/* Quote text */}
+      <blockquote style={{
+        fontSize: "14px",
+        fontStyle: "italic",
+        lineHeight: "1.70",
+        color: "var(--foreground)",
+        fontWeight: 400,
+        margin: 0,
+        flex: 1,
+      }}>
+        &ldquo;{quote.text[lang] || quote.text.tr}&rdquo;
+      </blockquote>
+
+      {/* Separator */}
+      <div style={{ height: "1px", background: "var(--glass-border)" }} />
+
+      {/* Attribution */}
+      <div>
+        <p style={{
+          fontSize: "13px", fontWeight: 700,
           color: "var(--foreground)",
-          fontWeight: 400,
-          margin: 0,
-          flex: 1,
+          letterSpacing: "-0.015em",
+          marginBottom: "3px",
         }}>
-          &ldquo;{quote.text[lang] || quote.text.tr}&rdquo;
-        </blockquote>
-
-        {/* Separator */}
-        <div style={{ height: "1px", background: "var(--glass-border)" }} />
-
-        {/* Attribution */}
-        <div>
-          <p style={{
-            fontSize: "13px", fontWeight: 700,
-            color: "var(--foreground)",
-            letterSpacing: "-0.015em",
-            marginBottom: "3px",
-          }}>
-            {quote.author}
-          </p>
-          <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--foreground-subtle)" }}>
-            {quote.role[lang] || quote.role.tr}
-          </p>
-        </div>
+          {quote.author}
+        </p>
+        <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--foreground-subtle)" }}>
+          {quote.role[lang] || quote.role.tr}
+        </p>
       </div>
     </div>
   );
