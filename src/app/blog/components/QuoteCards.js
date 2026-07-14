@@ -66,72 +66,89 @@ function QuoteCard({ quote, lang }) {
       "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)";
   }, []);
 
+  const authorImage = quote.author.split(" ").pop().toLowerCase();
+
   return (
     <div
       ref={cardRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="tilt-card rounded-2xl p-6 flex flex-col gap-5 cursor-default select-none"
+      className="tilt-card relative group overflow-hidden rounded-2xl p-6 flex flex-col gap-5 cursor-default select-none"
       style={{
         transition: "transform 0.12s ease, box-shadow 0.4s ease, border-color 0.35s ease",
         transformStyle: "preserve-3d",
       }}
     >
-      {/* Icon + faint colour wash on hover */}
-      <div style={{
-        display: "flex", alignItems: "flex-start", justifyContent: "space-between",
-        gap: "12px",
-      }}>
-        <span style={{
-          fontSize: "22px",
-          lineHeight: 1,
-          color: "var(--foreground-subtle)",
-          fontFamily: "monospace",
-          letterSpacing: "-0.05em",
+      {/* Background Image with Gradient Masking */}
+      <div
+        className="quote-bg-image absolute inset-y-0 right-0 w-1/2 md:w-2/5 pointer-events-none opacity-[0.08] dark:opacity-15 grayscale contrast-125 transition-transform duration-700 ease-out group-hover:scale-105"
+        style={{
+          backgroundImage: `url('/images/quotes/${authorImage}.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+          WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
+          maskImage: "linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)",
+        }}
+      />
+
+      {/* Content wrapper with pointer-events-auto */}
+      <div className="relative z-10 flex flex-col justify-between h-full pointer-events-auto flex-1 gap-5">
+        {/* Icon + faint colour wash on hover */}
+        <div style={{
+          display: "flex", alignItems: "flex-start", justifyContent: "space-between",
+          gap: "12px",
         }}>
-          {quote.icon}
-        </span>
-        {/* micro "QUOTE" tag */}
-        <span style={{
-          fontSize: "8px", fontFamily: "var(--font-geist-mono), monospace",
-          textTransform: "uppercase", letterSpacing: "0.12em",
-          color: "var(--foreground-subtle)", opacity: 0.6,
-          border: "1px solid var(--glass-border)",
-          padding: "2px 6px", borderRadius: "4px",
-        }}>
-          QUOTE
-        </span>
-      </div>
+          <span style={{
+            fontSize: "22px",
+            lineHeight: 1,
+            color: "var(--foreground-subtle)",
+            fontFamily: "monospace",
+            letterSpacing: "-0.05em",
+          }}>
+            {quote.icon}
+          </span>
+          {/* micro "QUOTE" tag */}
+          <span style={{
+            fontSize: "8px", fontFamily: "var(--font-geist-mono), monospace",
+            textTransform: "uppercase", letterSpacing: "0.12em",
+            color: "var(--foreground-subtle)", opacity: 0.6,
+            border: "1px solid var(--glass-border)",
+            padding: "2px 6px", borderRadius: "4px",
+          }}>
+            QUOTE
+          </span>
+        </div>
 
-      {/* Quote text */}
-      <blockquote style={{
-        fontSize: "14px",
-        fontStyle: "italic",
-        lineHeight: "1.70",
-        color: "var(--foreground)",
-        fontWeight: 400,
-        margin: 0,
-        flex: 1,
-      }}>
-        &ldquo;{quote.text[lang] || quote.text.tr}&rdquo;
-      </blockquote>
-
-      {/* Separator */}
-      <div style={{ height: "1px", background: "var(--glass-border)" }} />
-
-      {/* Attribution */}
-      <div>
-        <p style={{
-          fontSize: "13px", fontWeight: 700,
+        {/* Quote text */}
+        <blockquote style={{
+          fontSize: "14px",
+          fontStyle: "italic",
+          lineHeight: "1.70",
           color: "var(--foreground)",
-          letterSpacing: "-0.015em",
-          marginBottom: "3px",
+          fontWeight: 400,
+          margin: 0,
+          flex: 1,
         }}>
-          {quote.author}
-        </p>
-        <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--foreground-subtle)" }}>
-          {quote.role[lang] || quote.role.tr}
-        </p>
+          &ldquo;{quote.text[lang] || quote.text.tr}&rdquo;
+        </blockquote>
+
+        {/* Separator */}
+        <div style={{ height: "1px", background: "var(--glass-border)" }} />
+
+        {/* Attribution */}
+        <div>
+          <p style={{
+            fontSize: "13px", fontWeight: 700,
+            color: "var(--foreground)",
+            letterSpacing: "-0.015em",
+            marginBottom: "3px",
+          }}>
+            {quote.author}
+          </p>
+          <p className="font-mono text-[10px] uppercase tracking-widest" style={{ color: "var(--foreground-subtle)" }}>
+            {quote.role[lang] || quote.role.tr}
+          </p>
+        </div>
       </div>
     </div>
   );
