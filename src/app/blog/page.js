@@ -209,17 +209,31 @@ function SectionLabel({ children, dot = "muted" }) {
 function AdPlaceholder({ label, size, mb }) {
   return (
     <div
-      className={`py-5 px-4 text-center font-mono rounded-xl${mb ? " mb-12" : ""}`}
-      style={{ border: "1px dashed var(--border-color)", background: "transparent" }}
+      className={`py-5 px-4 text-center font-mono rounded-xl ${mb ? "mb-12" : ""}`}
+      style={{
+        border: "1.5px dashed var(--border-hover)",
+        background: "rgba(245, 245, 247, 0.7)", /* fallbacks neatly in dark mode via system or direct class overrides if wanted, but explicitly styled for light mode */
+      }}
+      ref={(el) => {
+        if (!el) return;
+        // Adjust for dark mode dynamically
+        const isDark = document.documentElement.classList.contains("dark");
+        el.style.background = isDark ? "rgba(255, 255, 255, 0.02)" : "rgba(240, 240, 243, 0.7)";
+      }}
     >
-      <span className="block text-[9px] uppercase tracking-widest mb-2" style={{ color: "var(--foreground-subtle)", opacity: 0.5 }}>
-        // {label} //
+      <span className="block text-[9px] uppercase tracking-widest mb-2" style={{ color: "var(--foreground-subtle)", fontWeight: 700 }}>
+        // ADVERTISEMENT SPACE //
       </span>
       <div
         className="mx-auto flex items-center justify-center rounded-lg"
-        style={{ height: "56px", maxWidth: "800px", border: "1px dashed var(--border-color)" }}
+        style={{
+          height: "56px",
+          maxWidth: "800px",
+          border: "1.5px dashed var(--border-color)",
+          background: "transparent",
+        }}
       >
-        <span className="text-[9px] uppercase tracking-widest" style={{ color: "var(--foreground-subtle)", opacity: 0.35 }}>
+        <span className="text-[9px] uppercase tracking-widest" style={{ color: "var(--foreground-subtle)", opacity: 0.6 }}>
           {size}
         </span>
       </div>
