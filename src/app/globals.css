@@ -422,3 +422,24 @@ body {
 .transition-premium {
   transition: all 0.6s cubic-bezier(0.16,1,0.3,1);
 }
+
+.partner-logo-img {
+  opacity: 0.75;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group:hover .partner-logo-img {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.dark .dark\:invert {
+  filter: invert(1);
+}
+
+.theme-adaptive-invert {
+  filter: invert(0) !important;
+}
+
+.dark .theme-adaptive-invert {
+  filter: invert(1) !important;
+}
