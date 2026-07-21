@@ -184,6 +184,24 @@ export default function Header({ isArticle = false, lang = "tr", onLangChange })
           {/* ── Right controls ── */}
           <div className="flex items-center gap-2 shrink-0">
 
+            {/* Oxypace Platform Yolu Button */}
+            <a
+              href="https://oxypace.com.tr/login"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-xs transition-all"
+              style={{
+                background: "linear-gradient(135deg, #6366f1 0%, #a855f7 100%)",
+                color: "#ffffff",
+                textDecoration: "none",
+                boxShadow: "0 2px 10px rgba(168, 85, 247, 0.4)",
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif"
+              }}
+            >
+              <span>Oxypace Platform Yolu</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+
             {/* Search button */}
             <button
               id="search-btn"
